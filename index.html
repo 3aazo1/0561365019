@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>عبدالعزيز خليفة - تواصل معي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* خلفية سائلة (Mesh Gradient) مشابهة لنمط Linktree */
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            padding: 20px;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* حاوية البطاقة بنمط عصري شفاف */
+        .phone-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 360px;
+            background: rgba(255, 255, 255, 0.15); /* شفافية خفيفة */
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 30px;
+            padding: 40px 24px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            text-align: center;
+        }
+
+        h1 {
+            color: #ffffff;
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        p {
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 35px;
+            opacity: 0.9;
+        }
+
+        .buttons-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* الأزرار ثلاثية الأبعاد */
+        .btn-3d {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 18px;
+            font-size: 18px;
+            font-weight: 800;
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 18px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .btn-wa {
+            background: #25d366;
+            box-shadow: 0px 6px 0px #128c7e;
+        }
+
+        .btn-call {
+            background: #3b82f6;
+            box-shadow: 0px 6px 0px #1d4ed8;
+        }
+
+        .btn-3d:active {
+            transform: translateY(4px);
+            box-shadow: 0px 2px 0px rgba(0,0,0,0.3);
+        }
+
+        .btn-3d i { font-size: 22px; }
+    </style>
+</head>
+<body>
+
+    <div class="phone-container">
+        <h1>عبدالعزيز خليفة</h1>
+        <p>تواصل معي مباشرة</p>
+
+        <div class="buttons-list">
+            <a href="https://wa.me/966561365019" class="btn-3d btn-wa" target="_blank">
+                <i class="fa-brands fa-whatsapp"></i>
+                <span>مراسلة واتساب</span>
+            </a>
+
+            <a href="tel:0561365019" class="btn-3d btn-call">
+                <i class="fa-solid fa-phone"></i>
+                <span>اتصال مباشر</span>
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>
+
