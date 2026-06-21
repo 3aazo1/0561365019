@@ -19,7 +19,7 @@
         body {
             min-height: 100vh;
             display: flex;
-            flex-direction: column; /* لترتيب الصورة المتحركة فوق الكرت بشكل ممتاز */
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             margin: 0;
@@ -40,15 +40,15 @@
             width: 100%;
             max-width: 360px;
             text-align: center;
-            margin-bottom: 15px; /* مسافة بين الصورة والكرت الزجاجي */
+            margin-bottom: 15px;
             z-index: 10;
         }
 
         .teletubbies-img {
-            width: 100%; /* تأخذ عرض الحاوية بالكامل */
-            max-width: 280px; /* حجم مناسب للعرض على شاشات الجوال */
-            border-radius: 20px; /* زوايا ناعمة تتناسق مع الكرت */
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25); /* ظل يعطيها عمقاً جميلاً */
+            width: 100%;
+            max-width: 280px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
             border: 2px solid rgba(255, 255, 255, 0.4);
         }
 
@@ -116,12 +116,6 @@
             cursor: pointer;
         }
 
-        .btn-snap {
-            background: #FFFC00;
-            color: #000000;
-            box-shadow: 0px 6px 0px #ccca00;
-        }
-
         .btn-wa {
             background: #25d366;
             box-shadow: 0px 6px 0px #128c7e;
@@ -135,10 +129,6 @@
         .btn-3d:active {
             transform: translateY(4px);
             box-shadow: 0px 2px 0px rgba(0,0,0,0.3);
-        }
-
-        .btn-snap:active {
-            box-shadow: 0px 2px 0px #ccca00;
         }
 
         .btn-3d i { font-size: 22px; }
@@ -159,16 +149,13 @@
         <p>تواصل معي مباشرة</p>
 
         <div class="buttons-list">
-            <a href="https://www.snapchat.com/add/alhawari249?share_id=aSDgC0fyfWk&locale=ar-AE" class="btn-3d btn-snap" target="_blank">
-                <i class="fa-brands fa-snapchat"></i>
-                <span>حسابي في سناب شات</span>
-            </a>
-
+            <!-- زر الواتساب -->
             <a href="https://wa.me/966561365019" class="btn-3d btn-wa" target="_blank">
                 <i class="fa-brands fa-whatsapp"></i>
                 <span>مراسلة واتساب</span>
             </a>
 
+            <!-- زر الاتصال المباشر -->
             <a href="tel:0561365019" class="btn-3d btn-call">
                 <i class="fa-solid fa-phone"></i>
                 <span>اتصال مباشر</span>
