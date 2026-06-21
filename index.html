@@ -19,7 +19,6 @@
         body {
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             margin: 0;
@@ -33,23 +32,6 @@
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
-        }
-
-        /* تنسيق حاوية الصورة المتحركة للتيلتبيز */
-        .gif-container {
-            width: 100%;
-            max-width: 360px;
-            text-align: center;
-            margin-bottom: 15px;
-            z-index: 10;
-        }
-
-        .teletubbies-img {
-            width: 100%;
-            max-width: 280px;
-            border-radius: 20px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
-            border: 2px solid rgba(255, 255, 255, 0.4);
         }
 
         .phone-container {
@@ -136,26 +118,19 @@
 </head>
 <body>
 
-    <!-- الجزء الخاص بعرض صورتك المتحركة Teletubbies أعلى الصفحة -->
-    <div class="gif-container">
-        <img src="teletubbies.gif" alt="Teletubbies" class="teletubbies-img">
-    </div>
-
     <div class="phone-container">
-        <!-- صورتك الشخصية الدائرية -->
+        <!-- تم ربط اسم صورتك الجديد هنا بنجاح -->
         <img src="my-pic.jpg" alt="عبدالعزيز خليفة" class="profile-img">
         
         <h1>عبدالعزيز خليفة</h1>
         <p>تواصل معي مباشرة</p>
 
         <div class="buttons-list">
-            <!-- زر الواتساب -->
             <a href="https://wa.me/966561365019" class="btn-3d btn-wa" target="_blank">
                 <i class="fa-brands fa-whatsapp"></i>
                 <span>مراسلة واتساب</span>
             </a>
 
-            <!-- زر الاتصال المباشر -->
             <a href="tel:0561365019" class="btn-3d btn-call">
                 <i class="fa-solid fa-phone"></i>
                 <span>اتصال مباشر</span>
