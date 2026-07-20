@@ -25,9 +25,7 @@
             margin: 0;
             padding: 20px;
             overflow: hidden;
-            /* منع التمرير */
             background: #0a0a0f;
-            /* لون احتياطي أثناء تحميل الفيديو */
         }
 
         /* ===== فيديو الخلفية (تشغيل تلقائي، مكرر، بدون صوت) ===== */
@@ -41,9 +39,7 @@
             height: auto;
             z-index: -2;
             object-fit: cover;
-            /* تغطية كاملة دون تشويه */
             background: #1a1a2e;
-            /* خلفية احتياطية */
         }
 
         /* طبقة تراكب خفيفة جداً فوق الفيديو لتحسين وضوح النص */
@@ -54,7 +50,6 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.25);
-            /* طبقة سوداء شفافة قليلاً */
             z-index: -1;
             pointer-events: none;
         }
@@ -66,7 +61,6 @@
             width: 100%;
             max-width: 380px;
             background: rgba(255, 255, 255, 0.07);
-            /* شفافية عالية لإظهار الفيديو */
             backdrop-filter: blur(10px) saturate(160%);
             -webkit-backdrop-filter: blur(10px) saturate(160%);
             border: 1px solid rgba(255, 255, 255, 0.15);
@@ -107,7 +101,7 @@
             display: block;
         }
 
-        /* الحلقة الضوئية المتوهجة (كما أحببت) */
+        /* الحلقة الضوئية المتوهجة */
         .profile-wrapper::before {
             content: '';
             position: absolute;
@@ -134,7 +128,7 @@
             }
         }
 
-        /* ===== النصوص (تباين عالٍ لقراءة ممتازة) ===== */
+        /* ===== النصوص ===== */
         h1 {
             color: #ffffff;
             font-size: 30px;
@@ -185,19 +179,16 @@
             transition: transform 0.2s ease;
         }
 
-        /* زر واتساب */
         .btn-wa {
             background: linear-gradient(145deg, #2ad06b, #1ea85a);
             box-shadow: 0 8px 0 #0f7a42, 0 10px 30px rgba(37, 211, 102, 0.3);
         }
 
-        /* زر الاتصال */
         .btn-call {
             background: linear-gradient(145deg, #5b8cff, #3b6ad9);
             box-shadow: 0 8px 0 #1f49a0, 0 10px 30px rgba(59, 130, 246, 0.3);
         }
 
-        /* تأثير الضغط */
         .btn-3d:active {
             transform: translateY(6px) scale(0.97);
             box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
@@ -267,16 +258,15 @@
 </head>
 <body>
 
-    <!-- ===== فيديو الخلفية (ضع اسم ملفك هنا) ===== -->
-    <!-- 🔻 غيّر "my-background.mp4" إلى اسم الفيديو الذي رفعته في المستودع -->
+    <!-- ===== فيديو الخلفية (تم تعديل اسم الملف إلى Makkah) ===== -->
     <video autoplay muted loop playsinline id="bg-video">
-        <source src="my-background.mp4" type="video/mp4">
-        <!-- يمكنك إضافة صيغ إضافية للتوافق مثل WebM -->
-        <!-- <source src="my-background.webm" type="video/webm"> -->
+        <source src="Makkah.mp4" type="video/mp4">
+        <!-- يمكنك إضافة صيغ إضافية مثل WebM للتوافق -->
+        <!-- <source src="Makkah.webm" type="video/webm"> -->
         متصفحك لا يدعم تشغيل الفيديو.
     </video>
 
-    <!-- طبقة تراكب خفيفة جداً لتعزيز وضوح النص -->
+    <!-- طبقة تراكب خفيفة -->
     <div class="overlay"></div>
 
     <div class="phone-container">
