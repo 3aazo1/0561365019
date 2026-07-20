@@ -2,13 +2,13 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>عبدالعزيز خليفة - تواصل معي</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
-        /* ===== إعادة تعيين كامل ===== */
+        /* ===== إعادة تعيين كامل مع منع التمرير ===== */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -20,9 +20,14 @@
         html, body {
             width: 100%;
             height: 100%;
-            min-height: 100vh;
             margin: 0;
             padding: 0;
+            overflow: hidden; /* يمنع التمرير نهائياً */
+            overscroll-behavior: none; /* يمنع تأثير السحب الزائد وسحب التحديث */
+            touch-action: none; /* يمنع السحب والإيماءات اللمسية في الخلفية */
+            position: fixed; /* تثبيت الصفحة لمنع أي حركة */
+            top: 0;
+            left: 0;
         }
 
         body {
@@ -32,7 +37,8 @@
             background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
             background-size: 400% 400%;
             animation: gradient 15s ease infinite;
-            background-attachment: fixed; /* تثبيت الخلفية */
+            background-attachment: fixed;
+            touch-action: none; /* منع السحب على مستوى الجسم */
         }
 
         @keyframes gradient {
@@ -41,12 +47,13 @@
             100% { background-position: 0% 50%; }
         }
 
+        /* ===== حاوية البطاقة ===== */
         .phone-container {
             position: relative;
             z-index: 10;
             width: 100%;
             max-width: 380px;
-            margin: 20px; /* مسافة أمان صغيرة على الحواف */
+            margin: 15px; /* مسافة أمان صغيرة جداً للحواف */
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
@@ -55,6 +62,8 @@
             padding: 40px 24px;
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
             text-align: center;
+            /* منع السحب داخل البطاقة نفسها مع السماح بالنقر على الأزرار */
+            touch-action: manipulation; 
         }
 
         /* ===== الحلقة المتوهجة حول الصورة ===== */
@@ -92,6 +101,9 @@
             display: block;
             border: 3px solid rgba(255, 255, 255, 0.6);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            /* منع سحب الصورة كصورة منفصلة */
+            -webkit-user-drag: none;
+            user-select: none;
         }
 
         h1 {
@@ -100,6 +112,7 @@
             font-weight: 900;
             margin-bottom: 10px;
             text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            user-select: none; /* منع تحديد النص */
         }
 
         p {
@@ -108,6 +121,7 @@
             font-weight: 600;
             margin-bottom: 35px;
             opacity: 0.9;
+            user-select: none;
         }
 
         .buttons-list {
@@ -129,8 +143,12 @@
             text-decoration: none;
             border: none;
             border-radius: 18px;
-            transition: all 0.2s ease;
+            transition: all 0.15s ease;
             cursor: pointer;
+            /* السماح بالتفاعلات اللمسية للأزرار فقط */
+            touch-action: manipulation;
+            -webkit-user-drag: none;
+            user-select: none;
         }
 
         .btn-wa {
@@ -148,13 +166,17 @@
             box-shadow: 0px 2px 0px rgba(0,0,0,0.3);
         }
 
-        .btn-3d i { font-size: 22px; }
+        .btn-3d i { 
+            font-size: 22px; 
+            pointer-events: none; /* منع الأيقونة من اعتراض النقرات */
+        }
 
         /* ===== تحسينات للشاشات الصغيرة جداً ===== */
         @media (max-width: 420px) {
             .phone-container {
                 padding: 28px 16px;
-                margin: 12px;
+                margin: 10px;
+                border-radius: 24px;
             }
             .profile-img {
                 width: 90px;
@@ -172,6 +194,14 @@
                 font-size: 20px;
             }
         }
+
+        /* ===== تحسين للشاشات الكبيرة جداً ===== */
+        @media (min-width: 600px) {
+            .phone-container {
+                padding: 48px 36px;
+                max-width: 420px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -185,7 +215,7 @@
         <p>تواصل معي مباشرة</p>
 
         <div class="buttons-list">
-            <a href="https://wa.me/966561365019" class="btn-3d btn-wa" target="_blank">
+            <a href="https://wa.me/966561365019" class="btn-3d btn-wa" target="_blank" rel="noopener">
                 <i class="fa-brands fa-whatsapp"></i>
                 <span>مراسلة واتساب</span>
             </a>
