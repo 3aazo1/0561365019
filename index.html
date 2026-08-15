@@ -494,6 +494,116 @@
         .text-center { text-align: center; }
         .mt-20 { margin-top: 20px; }
 
+        /* ===== مؤقت القنبلة ===== */
+        .bomb-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-family: 'Cairo', sans-serif;
+        }
+        .bomb-content {
+            text-align: center;
+        }
+        .bomb-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: bombShake 0.5s infinite;
+        }
+        #countdown {
+            font-size: 120px;
+            font-weight: 900;
+            text-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
+        }
+        @keyframes bombShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px) rotate(-2deg); }
+            75% { transform: translateX(5px) rotate(2deg); }
+        }
+
+        /* ===== نافذة التنبيه العصرية ===== */
+        .alert-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+        .alert-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-glass);
+            border-radius: 30px;
+            padding: 40px 30px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            animation: scaleUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .alert-emoji {
+            font-size: 100px;
+            margin-bottom: 20px;
+            animation: pulse 1.5s infinite;
+        }
+        .alert-message {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 30px;
+            line-height: 1.4;
+        }
+        .alert-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 60px;
+            padding: 14px 30px;
+            font-size: 18px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+        .alert-btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px var(--accent-glow);
+        }
+        .alert-btn:active {
+            transform: translateY(0) scale(0.97);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes scaleUp {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
         /* ===== التجاوب ===== */
 
         /* شاشات متوسطة */
@@ -614,6 +724,18 @@
             .hero-glow {
                 width: 220px;
                 height: 220px;
+            }
+            #countdown {
+                font-size: 80px;
+            }
+            .bomb-icon {
+                font-size: 60px;
+            }
+            .alert-emoji {
+                font-size: 80px;
+            }
+            .alert-message {
+                font-size: 20px;
             }
         }
 
@@ -773,6 +895,25 @@
         </div>
     </footer>
 
+    <!-- ===== طبقة مؤقت القنبلة ===== -->
+    <div id="bombOverlay" class="bomb-overlay" style="display: none;">
+        <div class="bomb-content">
+            <div class="bomb-icon">💣</div>
+            <div id="countdown">3</div>
+        </div>
+    </div>
+
+    <!-- ===== نافذة التنبيه العصرية ===== -->
+    <div id="alertOverlay" class="alert-overlay" style="display: none;">
+        <div class="alert-card">
+            <div class="alert-emoji">😅</div>
+            <div class="alert-message">انتهت الجلسة اعد المحاولة</div>
+            <button class="alert-btn" id="reloadBtn">
+                <i class="fas fa-redo"></i> إعادة المحاولة
+            </button>
+        </div>
+    </div>
+
     <script>
         // ===== السنة التلقائية =====
         document.getElementById('year').textContent = new Date().getFullYear();
@@ -867,6 +1008,134 @@
                 }
             }, 200);
         });
+    </script>
+
+    <!-- ===== منطق مؤقت القنبلة والنافذة العصرية ===== -->
+    <script>
+        let bottomTimeout = null;
+        let countdownInterval = null;
+        let isBombActive = false;
+        let audioCtx = null;
+
+        function getAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            return audioCtx;
+        }
+
+        function playTick() {
+            try {
+                const ctx = getAudioContext();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'square';
+                osc.frequency.value = 2000;
+                gain.gain.setValueAtTime(0.2, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.04);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(ctx.currentTime);
+                osc.stop(ctx.currentTime + 0.04);
+            } catch (e) {}
+        }
+
+        function playExplosion() {
+            try {
+                const ctx = getAudioContext();
+                const duration = 1.5;
+                const bufferSize = Math.floor(ctx.sampleRate * duration);
+                const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+                const data = buffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) {
+                    data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / bufferSize, 2);
+                }
+                const source = ctx.createBufferSource();
+                source.buffer = buffer;
+                const gain = ctx.createGain();
+                gain.gain.setValueAtTime(0.8, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+                const filter = ctx.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.value = 800;
+                source.connect(filter);
+                filter.connect(gain);
+                gain.connect(ctx.destination);
+                source.start(ctx.currentTime);
+            } catch (e) {}
+        }
+
+        function checkBottom() {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            const threshold = 10;
+            return scrollTop + windowHeight >= documentHeight - threshold;
+        }
+
+        function startBombCountdown() {
+            if (isBombActive) return;
+            isBombActive = true;
+            const overlay = document.getElementById('bombOverlay');
+            const countdownDisplay = document.getElementById('countdown');
+            let count = 3;
+            countdownDisplay.textContent = count;
+            overlay.style.display = 'flex';
+            playTick();
+
+            countdownInterval = setInterval(() => {
+                count--;
+                if (count > 0) {
+                    countdownDisplay.textContent = count;
+                    playTick();
+                } else {
+                    clearInterval(countdownInterval);
+                    countdownInterval = null;
+                    countdownDisplay.textContent = '💥';
+                    playExplosion();
+                    setTimeout(() => {
+                        // إخفاء مؤقت القنبلة
+                        overlay.style.display = 'none';
+                        isBombActive = false;
+                        // إظهار النافذة العصرية
+                        document.getElementById('alertOverlay').style.display = 'flex';
+                    }, 1500);
+                }
+            }, 1000);
+        }
+
+        window.addEventListener('scroll', () => {
+            if (isBombActive) return;
+            if (checkBottom()) {
+                if (!bottomTimeout) {
+                    bottomTimeout = setTimeout(() => {
+                        bottomTimeout = null;
+                        startBombCountdown();
+                    }, 3000);
+                }
+            } else {
+                if (bottomTimeout) {
+                    clearTimeout(bottomTimeout);
+                    bottomTimeout = null;
+                }
+            }
+        });
+
+        // زر إعادة المحاولة
+        document.getElementById('reloadBtn').addEventListener('click', () => {
+            location.reload();
+        });
+
+        // محاولة فتح الصوت عند أول تفاعل
+        document.addEventListener('click', () => {
+            const ctx = getAudioContext();
+            if (ctx.state === 'suspended') {
+                ctx.resume();
+            }
+        }, { once: true });
     </script>
 
 </body>
