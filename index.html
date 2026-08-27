@@ -159,6 +159,7 @@
             font-weight: 800; font-size: 18px; text-decoration: none;
             box-shadow: 0 4px 20px var(--accent-glow);
             transition: all 0.25s ease; border: none; cursor: pointer;
+            font-family: 'Cairo', sans-serif;
         }
         .hero-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 34px var(--accent-glow); background: var(--accent-hover); }
         .hero-btn:active { transform: translateY(0) scale(0.97); }
@@ -308,57 +309,136 @@
             padding: 16px 34px; border-radius: 60px;
             font-weight: 800; font-size: 17px; text-decoration: none;
             transition: all 0.25s ease; border: none; cursor: pointer;
+            font-family: 'Cairo', sans-serif;
         }
         .contact-btn-wa { background: #25d366; color: #fff; box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3); }
         .contact-btn-wa:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(37, 211, 102, 0.45); }
-        .contact-btn-call { background: var(--accent); color: #fff; box-shadow: 0 4px 20px var(--accent-glow); }
-        .contact-btn-call:hover { transform: translateY(-3px); background: var(--accent-hover); box-shadow: 0 8px 30px var(--accent-glow); }
         .contact-btn:active { transform: translateY(0) scale(0.97); }
 
         footer { border-top: 1px solid var(--border-glass); padding: 30px 0; text-align: center; color: var(--text-muted); font-size: 14px; }
 
-        /* ===== مؤقت القنبلة ===== */
-        .bomb-overlay {
-            position: fixed; inset: 0; background: rgba(0, 0, 0, 0.95); z-index: 9999;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            color: #fff; font-family: 'Cairo', sans-serif;
+        /* ===== النافذة المنبثقة (إرسال فكرة) ===== */
+        .idea-overlay {
+            position: fixed; inset: 0; z-index: 10000;
+            background: rgba(5, 5, 10, 0.62);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            display: flex; align-items: center; justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.25s ease;
         }
-        .bomb-content { text-align: center; }
-        .bomb-icon { font-size: 80px; margin-bottom: 20px; animation: bombShake 0.5s infinite; }
-        #countdown { font-size: 120px; font-weight: 900; text-shadow: 0 0 30px rgba(255, 0, 0, 0.8); }
-        @keyframes bombShake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-6px) rotate(-3deg); }
-            75% { transform: translateX(6px) rotate(3deg); }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .idea-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-glass);
+            border-radius: 28px;
+            width: 100%; max-width: 470px;
+            padding: 36px 30px 30px;
+            box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+            position: relative;
+            animation: modalUp 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-height: 90vh; overflow-y: auto;
+        }
+        @keyframes modalUp {
+            from { transform: translateY(36px) scale(0.94); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
         }
 
-        /* ===== نافذة التنبيه ===== */
-        .alert-overlay {
-            position: fixed; inset: 0; background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-            z-index: 10000; display: flex; align-items: center; justify-content: center;
-            animation: fadeIn 0.3s ease;
+        .idea-close {
+            position: absolute; top: 16px; left: 16px;
+            width: 38px; height: 38px; border-radius: 50%;
+            background: var(--bg-card); border: 1px solid var(--border-glass);
+            color: var(--text-secondary); font-size: 15px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: all 0.25s ease;
         }
-        .alert-card {
-            background: var(--bg-secondary); border: 1px solid var(--border-glass);
-            border-radius: 30px; padding: 42px 30px; text-align: center;
-            max-width: 400px; width: 90%;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-            animation: scaleUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        .idea-close:hover { background: var(--bg-card-hover); color: var(--text-primary); transform: rotate(90deg); }
+
+        .idea-icon {
+            width: 66px; height: 66px; border-radius: 22px;
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 32px; color: #fff;
+            margin: 0 auto 16px;
+            box-shadow: 0 10px 28px rgba(37, 211, 102, 0.35);
+            animation: iconPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.4) both;
         }
-        .alert-emoji { font-size: 100px; margin-bottom: 20px; animation: pulse 1.5s infinite; }
-        .alert-message { font-size: 24px; font-weight: 800; color: var(--text-primary); margin-bottom: 30px; line-height: 1.4; }
-        .alert-btn {
-            display: inline-flex; align-items: center; gap: 10px;
-            background: var(--accent); color: #fff; border: none; border-radius: 60px;
-            padding: 14px 30px; font-size: 18px; font-weight: 800; cursor: pointer;
-            transition: all 0.25s ease; box-shadow: 0 4px 20px var(--accent-glow); font-family: 'Cairo', sans-serif;
+        @keyframes iconPop {
+            from { transform: scale(0) rotate(-30deg); }
+            to { transform: scale(1) rotate(0); }
         }
-        .alert-btn:hover { background: var(--accent-hover); transform: translateY(-3px); box-shadow: 0 8px 30px var(--accent-glow); }
-        .alert-btn:active { transform: translateY(0) scale(0.97); }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes scaleUp { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+
+        .idea-card h3 { font-size: 22px; font-weight: 900; text-align: center; margin-bottom: 4px; }
+        .idea-card .idea-sub { font-size: 14px; color: var(--text-secondary); text-align: center; margin-bottom: 24px; font-weight: 600; }
+
+        .field-group { margin-bottom: 16px; text-align: right; }
+        .field-group label {
+            display: block; font-size: 14px; font-weight: 800;
+            margin-bottom: 8px; color: var(--text-primary);
+        }
+        .field-group label .req { color: #ff6b6b; margin-right: 2px; }
+        .field-group input,
+        .field-group textarea {
+            width: 100%;
+            background: var(--bg-card);
+            border: 1.5px solid var(--border-glass);
+            border-radius: 14px;
+            padding: 13px 16px;
+            color: var(--text-primary);
+            font-family: 'Cairo', sans-serif;
+            font-size: 15px; font-weight: 600;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+            outline: none;
+        }
+        .field-group input::placeholder,
+        .field-group textarea::placeholder { color: var(--text-muted); font-weight: 600; }
+        .field-group input:focus,
+        .field-group textarea:focus {
+            border-color: #25d366;
+            box-shadow: 0 0 0 4px rgba(37, 211, 102, 0.14);
+            background: var(--bg-card-hover);
+        }
+        .field-group textarea { min-height: 110px; resize: none; line-height: 1.7; }
+
+        .field-error { border-color: #ff6b6b !important; box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.14) !important; }
+        .shake { animation: shakeX 0.4s ease; }
+        @keyframes shakeX {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-7px); }
+            40% { transform: translateX(7px); }
+            60% { transform: translateX(-5px); }
+            80% { transform: translateX(5px); }
+        }
+
+        .char-counter {
+            display: block; text-align: left;
+            font-size: 12px; color: var(--text-muted);
+            font-weight: 700; margin-top: 5px;
+            transition: color 0.25s ease;
+        }
+        .char-counter.warn { color: #ff9f43; }
+
+        .idea-send {
+            width: 100%; margin-top: 8px;
+            background: #25d366; color: #fff;
+            border: none; border-radius: 16px;
+            padding: 15px; font-size: 17px; font-weight: 800;
+            font-family: 'Cairo', sans-serif;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            transition: all 0.25s ease;
+            box-shadow: 0 6px 22px rgba(37, 211, 102, 0.3);
+        }
+        .idea-send:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(37, 211, 102, 0.45); background: #2ee275; }
+        .idea-send:active { transform: translateY(0) scale(0.98); }
+        .idea-send.sent { background: #128c7e; pointer-events: none; }
+
+        .idea-note {
+            display: flex; align-items: center; justify-content: center; gap: 6px;
+            font-size: 12px; color: var(--text-muted); font-weight: 700;
+            margin-top: 14px;
+        }
+        .idea-note i { font-size: 11px; }
 
         /* ===== الظهور عند التمرير ===== */
         .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
@@ -414,10 +494,8 @@
             .hero-glow { width: 230px; height: 230px; }
             .orbit-ring { width: 240px; height: 240px; }
             .chip { font-size: 11px; padding: 6px 10px; }
-            #countdown { font-size: 80px; }
-            .bomb-icon { font-size: 60px; }
-            .alert-emoji { font-size: 80px; }
-            .alert-message { font-size: 20px; }
+            .idea-card { padding: 30px 20px 24px; border-radius: 22px; }
+            .idea-card h3 { font-size: 19px; }
         }
     </style>
 </head>
@@ -458,9 +536,9 @@
                 <p class="hero-desc">
                     أصمم وأطور تجارب رقمية عصرية تجمع بين التصميم، البرمجة والذكاء الاصطناعي.
                 </p>
-                <a href="https://wa.me/966561365019" target="_blank" rel="noopener" class="hero-btn">
+                <button type="button" class="hero-btn" onclick="openIdeaModal()">
                     <i class="fa-brands fa-whatsapp"></i> 💬 تواصل معي
-                </a>
+                </button>
                 <div class="hero-stats">
                     <div class="stat"><b>+20</b><span>مشروع منجز</span></div>
                     <div class="stat"><b>+15</b><span>عميل سعيد</span></div>
@@ -577,12 +655,9 @@
                 <p style="color:var(--text-secondary); font-size:20px; font-weight:600;">لنحوّلها إلى شيء حقيقي.</p>
             </div>
             <div class="contact-buttons reveal">
-                <a href="https://wa.me/966561365019" target="_blank" rel="noopener" class="contact-btn contact-btn-wa">
-                    <i class="fa-brands fa-whatsapp"></i> 💬 تواصل معي عبر واتساب
-                </a>
-                <a href="tel:0561365019" class="contact-btn contact-btn-call">
-                    <i class="fas fa-phone"></i> اتصال مباشر
-                </a>
+                <button type="button" class="contact-btn contact-btn-wa" onclick="openIdeaModal()">
+                    <i class="fa-brands fa-whatsapp"></i> 💬 أرسل فكرتك عبر واتساب
+                </button>
             </div>
         </div>
     </section>
@@ -594,22 +669,37 @@
         </div>
     </footer>
 
-    <!-- ===== طبقة مؤقت القنبلة ===== -->
-    <div id="bombOverlay" class="bomb-overlay" style="display: none;">
-        <div class="bomb-content">
-            <div class="bomb-icon">💣</div>
-            <div id="countdown">3</div>
-        </div>
-    </div>
-
-    <!-- ===== نافذة التنبيه ===== -->
-    <div id="alertOverlay" class="alert-overlay" style="display: none;">
-        <div class="alert-card">
-            <div class="alert-emoji">😅</div>
-            <div class="alert-message">انتهت الجلسة اعد المحاولة</div>
-            <button class="alert-btn" id="reloadBtn">
-                <i class="fas fa-redo"></i> إعادة المحاولة
+    <!-- ===== النافذة المنبثقة: أرسل فكرتك ===== -->
+    <div id="ideaOverlay" class="idea-overlay" style="display: none;">
+        <div class="idea-card">
+            <button type="button" class="idea-close" onclick="closeIdeaModal()" aria-label="إغلاق">
+                <i class="fas fa-times"></i>
             </button>
+
+            <div class="idea-icon"><i class="fa-brands fa-whatsapp"></i></div>
+            <h3>أرسل فكرتك 💡</h3>
+            <p class="idea-sub">اكتب تفاصيل فكرتك وسيتم تحويلها مباشرة إلى واتساب</p>
+
+            <form id="ideaForm" novalidate>
+                <div class="field-group">
+                    <label for="ideaTitle">عنوان الفكرة <span class="req">*</span></label>
+                    <input type="text" id="ideaTitle" placeholder="مثال: تطبيق توصيل للمطاعم المنزلية" maxlength="80" autocomplete="off" />
+                </div>
+
+                <div class="field-group">
+                    <label for="ideaDesc">وصف الفكرة باختصار <span class="req">*</span></label>
+                    <textarea id="ideaDesc" placeholder="اشرح فكرتك باختصار: ما المشكلة التي تحلها؟ ولمن هذا المنتج؟" maxlength="600"></textarea>
+                    <span class="char-counter" id="charCounter">0 / 600</span>
+                </div>
+
+                <button type="submit" class="idea-send" id="sendIdeaBtn">
+                    <i class="fa-brands fa-whatsapp"></i> إرسال عبر واتساب
+                </button>
+            </form>
+
+            <div class="idea-note">
+                <i class="fas fa-lock"></i> سيتم فتح واتساب برسالة جاهزة تحتوي على تفاصيل فكرتك
+            </div>
         </div>
     </div>
 
@@ -696,117 +786,90 @@
         // ===== مضاعفة شريط الأدوات =====
         const marqueeTrack = document.getElementById('marqueeTrack');
         marqueeTrack.innerHTML += marqueeTrack.innerHTML;
-    </script>
 
-    <!-- ===== منطق القنبلة ===== -->
-    <script>
-        let bottomTimer = null;
-        let countdownTimer = null;
-        let bombRunning = false;
-        let audioCtx = null;
+        // ===== النافذة المنبثقة: أرسل فكرتك =====
+        const ideaOverlay = document.getElementById('ideaOverlay');
+        const ideaForm = document.getElementById('ideaForm');
+        const ideaTitle = document.getElementById('ideaTitle');
+        const ideaDesc = document.getElementById('ideaDesc');
+        const sendIdeaBtn = document.getElementById('sendIdeaBtn');
+        const charCounter = document.getElementById('charCounter');
 
-        function getAudioContext() {
-            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            if (audioCtx.state === 'suspended') audioCtx.resume();
-            return audioCtx;
+        function openIdeaModal() {
+            ideaOverlay.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => ideaTitle.focus(), 350);
         }
 
-        function playTick() {
-            try {
-                const ctx = getAudioContext();
-                const osc = ctx.createOscillator();
-                const gainNode = ctx.createGain();
-                osc.type = 'square';
-                osc.frequency.value = 2000;
-                gainNode.gain.setValueAtTime(0.2, ctx.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.04);
-                osc.connect(gainNode);
-                gainNode.connect(ctx.destination);
-                osc.start(ctx.currentTime);
-                osc.stop(ctx.currentTime + 0.04);
-            } catch (err) {}
+        function closeIdeaModal() {
+            ideaOverlay.style.display = 'none';
+            document.body.style.overflow = '';
         }
 
-        function playExplosion() {
-            try {
-                const ctx = getAudioContext();
-                const duration = 1.5;
-                const bufferSize = Math.floor(ctx.sampleRate * duration);
-                const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-                const channel = buffer.getChannelData(0);
-                for (let i = 0; i < bufferSize; i++) {
-                    channel[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / bufferSize, 2);
-                }
-                const source = ctx.createBufferSource();
-                source.buffer = buffer;
-                const gainNode = ctx.createGain();
-                gainNode.gain.setValueAtTime(0.8, ctx.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
-                const lowpass = ctx.createBiquadFilter();
-                lowpass.type = 'lowpass';
-                lowpass.frequency.value = 800;
-                source.connect(lowpass);
-                lowpass.connect(gainNode);
-                gainNode.connect(ctx.destination);
-                source.start(ctx.currentTime);
-            } catch (err) {}
-        }
+        // إغلاق عند الضغط خارج البطاقة
+        ideaOverlay.addEventListener('click', (e) => {
+            if (e.target === ideaOverlay) closeIdeaModal();
+        });
 
-        function isAtBottom() {
-            const scrollTop = window.scrollY || document.documentElement.scrollTop;
-            return scrollTop + window.innerHeight >= document.documentElement.scrollHeight - 10;
-        }
+        // إغلاق بزر Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && ideaOverlay.style.display === 'flex') closeIdeaModal();
+        });
 
-        function startBombCountdown() {
-            if (bombRunning) return;
-            bombRunning = true;
-            const overlay = document.getElementById('bombOverlay');
-            const countdownEl = document.getElementById('countdown');
-            let count = 3;
-            countdownEl.textContent = count;
-            overlay.style.display = 'flex';
-            playTick();
+        // عداد الأحرف
+        ideaDesc.addEventListener('input', () => {
+            const len = ideaDesc.value.length;
+            charCounter.textContent = len + ' / 600';
+            charCounter.classList.toggle('warn', len >= 550);
+        });
 
-            countdownTimer = setInterval(() => {
-                count--;
-                if (count > 0) {
-                    countdownEl.textContent = count;
-                    playTick();
+        // إزالة حالة الخطأ عند الكتابة
+        [ideaTitle, ideaDesc].forEach(field => {
+            field.addEventListener('input', () => {
+                field.classList.remove('field-error', 'shake');
+            });
+        });
+
+        // إرسال النموذج
+        ideaForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            let valid = true;
+            [ideaTitle, ideaDesc].forEach(field => {
+                if (!field.value.trim()) {
+                    field.classList.add('field-error', 'shake');
+                    valid = false;
                 } else {
-                    clearInterval(countdownTimer);
-                    countdownTimer = null;
-                    countdownEl.textContent = '💥';
-                    playExplosion();
-                    setTimeout(() => {
-                        overlay.style.display = 'none';
-                        bombRunning = false;
-                        document.getElementById('alertOverlay').style.display = 'flex';
-                    }, 1500);
+                    field.classList.remove('field-error', 'shake');
                 }
-            }, 1000);
-        }
+            });
+            if (!valid) return;
 
-        window.addEventListener('scroll', () => {
-            if (bombRunning) return;
-            if (isAtBottom()) {
-                if (!bottomTimer) {
-                    bottomTimer = setTimeout(() => {
-                        bottomTimer = null;
-                        startBombCountdown();
-                    }, 3000);
-                }
-            } else if (bottomTimer) {
-                clearTimeout(bottomTimer);
-                bottomTimer = null;
-            }
-        }, { passive: true });
+            // تجهيز الرسالة
+            const message =
+                'مرحباً عبدالعزيز 👋\n' +
+                'لدي فكرة أود تحويلها إلى منتج رقمي:\n\n' +
+                '💡 عنوان الفكرة: ' + ideaTitle.value.trim() + '\n\n' +
+                '📝 وصف الفكرة: ' + ideaDesc.value.trim();
 
-        document.getElementById('reloadBtn').addEventListener('click', () => location.reload());
+            const waUrl = 'https://wa.me/966561365019?text=' + encodeURIComponent(message);
 
-        document.addEventListener('click', () => {
-            const ctx = getAudioContext();
-            if (ctx.state === 'suspended') ctx.resume();
-        }, { once: true });
+            // فتح واتساب فوراً (ضمن تفاعل المستخدم)
+            window.open(waUrl, '_blank');
+
+            // حالة النجاح
+            sendIdeaBtn.classList.add('sent');
+            sendIdeaBtn.innerHTML = '<i class="fas fa-check"></i> تم تجهيز فكرتك!';
+
+            setTimeout(() => {
+                closeIdeaModal();
+                ideaForm.reset();
+                charCounter.textContent = '0 / 600';
+                charCounter.classList.remove('warn');
+                sendIdeaBtn.classList.remove('sent');
+                sendIdeaBtn.innerHTML = '<i class="fa-brands fa-whatsapp"></i> إرسال عبر واتساب';
+            }, 1500);
+        });
     </script>
 </body>
 </html>
