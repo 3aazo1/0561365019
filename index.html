@@ -77,6 +77,64 @@
             transition: width 0.1s linear;
         }
 
+        /* ===== الرسالة الترحيبية العصرية ===== */
+        .welcome-toast {
+            position: fixed;
+            top: 85px;
+            right: 50%;
+            transform: translateX(50%) translateY(-30px);
+            background: var(--bg-secondary);
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glass);
+            border-radius: 18px;
+            padding: 16px 28px 19px;
+            display: flex; align-items: center; gap: 14px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+            z-index: 1300;
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+            max-width: 92%;
+            cursor: pointer;
+        }
+        .welcome-toast.show {
+            opacity: 1;
+            transform: translateX(50%) translateY(0);
+        }
+        .welcome-emoji {
+            font-size: 30px;
+            display: inline-block;
+            animation: welcomeWave 1.8s ease-in-out;
+        }
+        @keyframes welcomeWave {
+            0%, 100% { transform: rotate(0); }
+            20% { transform: rotate(-15deg); }
+            40% { transform: rotate(12deg); }
+            60% { transform: rotate(-8deg); }
+            80% { transform: rotate(5deg); }
+        }
+        .welcome-text {
+            font-size: 16px; font-weight: 800;
+            color: var(--text-primary);
+            white-space: nowrap;
+        }
+        .welcome-text .accent-name {
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+        }
+        .welcome-progress {
+            position: absolute; bottom: 0; right: 0;
+            height: 3px; width: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            animation: welcomeProgress 4.5s linear forwards;
+        }
+        @keyframes welcomeProgress {
+            from { width: 100%; }
+            to { width: 0; }
+        }
+
         .navbar {
             position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
             background: var(--nav-bg);
@@ -681,6 +739,8 @@
             .social-icons { gap: 12px; }
             .social-icon { width: 50px; height: 50px; font-size: 20px; }
             .scroll-hint { display: none; }
+            .welcome-text { font-size: 14px; }
+            .welcome-emoji { font-size: 26px; }
         }
 
         @media (max-width: 480px) {
@@ -945,6 +1005,15 @@
     </div>
 
     <script>
+        // ===== فتح الموقع من الأعلى دائماً =====
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+        window.addEventListener('load', () => {
+            window.scrollTo(0, 0);
+        });
+
         // ===== السنة =====
         document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -965,22 +1034,95 @@
             applyTheme(nextTheme);
         });
 
-        // ===== قائمة الجوال =====
+        // ===== الرسالة الترحيبية حسب الوقت المحلي =====
+        function showWelcomeMessage() {
+            const hour = new Date().getHours();
+            let emoji, message;
+
+            if (hour >= 5 && hour < 12) {
+                emoji = '☀️';
+                message = 'صباح الخير! أهلاً بك في موقع <span class="accent-name">عبدالعزيز</span>';
+            } else if (hour >= 12 && hour < 17) {
+                emoji = '🌤️';
+                message = 'نهارك سعيد! أهلاً بك في موقع <span class="accent-name">عبدالعزيز</span>';
+            } else {
+                emoji = '🌙';
+                message = 'مساء الخير! أهلاً بك في موقع <span class="accent-name">عبدالعزيز</span>';
+            }
+
+            const toast = document.createElement('div');
+            toast.className = 'welcome-toast';
+            toast.innerHTML =
+                '<span class="welcome-emoji">' + emoji + '</span>' +
+                '<span class="welcome-text">' + message + '</span>' +
+                '<div class="welcome-progress"></div>';
+            document.body.appendChild(toast);
+
+            // إظهار الرسالة بحركة سلسة
+            setTimeout(() => toast.classList.add('show'), 400);
+
+            // إخفاء تلقائي بعد 4.5 ثانية
+            const hideTimer = setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 600);
+            }, 4500);
+
+            // إغلاق يدوي عند النقر على الرسالة
+            toast.addEventListener('click', () => {
+                clearTimeout(hideTimer);
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 600);
+            });
+        }
+        window.addEventListener('load', showWelcomeMessage);
+
+        // ===== القائمة الجانبية مع دعم زر الرجوع والضغط خارجها =====
         const menuToggle = document.getElementById('menuToggle');
         const navLinks = document.getElementById('navLinks');
+        const navbar = document.getElementById('navbar');
+        let mobileMenuOpen = false;
 
-        function closeMobileMenu() {
-            navLinks.classList.remove('open');
-            menuToggle.querySelector('i').className = 'fas fa-bars';
+        function openMobileMenu() {
+            navLinks.classList.add('open');
+            menuToggle.querySelector('i').className = 'fas fa-times';
+            mobileMenuOpen = true;
+            try {
+                history.pushState({ mobileMenu: true }, '');
+            } catch (e) {}
         }
 
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('open');
-            menuToggle.querySelector('i').className = navLinks.classList.contains('open') ? 'fas fa-times' : 'fas fa-bars';
+        function closeMobileMenu(goBack = true) {
+            if (!mobileMenuOpen) return;
+            navLinks.classList.remove('open');
+            menuToggle.querySelector('i').className = 'fas fa-bars';
+            mobileMenuOpen = false;
+            if (goBack) {
+                try {
+                    if (history.state && history.state.mobileMenu) {
+                        history.back();
+                    }
+                } catch (e) {}
+            }
+        }
+
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (mobileMenuOpen) {
+                closeMobileMenu();
+            } else {
+                openMobileMenu();
+            }
+        });
+
+        // إغلاق القائمة عند النقر خارجها
+        document.addEventListener('click', (e) => {
+            if (mobileMenuOpen && !navbar.contains(e.target)) {
+                closeMobileMenu();
+            }
         });
 
         document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', closeMobileMenu);
+            link.addEventListener('click', () => closeMobileMenu());
         });
 
         // ===== الرابط النشط + شريط التقدم =====
@@ -1003,15 +1145,6 @@
         }
         window.addEventListener('scroll', onScrollUpdate, { passive: true });
         window.addEventListener('load', onScrollUpdate);
-
-        // ===== إغلاق القائمة عند التمرير =====
-        let menuScrollTimer = null;
-        window.addEventListener('scroll', () => {
-            clearTimeout(menuScrollTimer);
-            menuScrollTimer = setTimeout(() => {
-                if (navLinks.classList.contains('open')) closeMobileMenu();
-            }, 200);
-        }, { passive: true });
 
         // ===== الظهور عند التمرير =====
         const revealObserver = new IntersectionObserver((entries) => {
@@ -1079,7 +1212,6 @@
             }
         };
 
-        // ===== استماع لتغيير نوع المشروع =====
         projectType.addEventListener('change', () => {
             const selected = projectType.value;
             const template = projectTemplates[selected];
@@ -1111,7 +1243,6 @@
             }
         });
 
-        // ===== فتح وإغلاق النافذة مع دعم زر الرجوع =====
         function openIdeaModal() {
             ideaOverlay.style.display = 'flex';
             document.body.style.overflow = 'hidden';
@@ -1136,7 +1267,12 @@
             }
         }
 
+        // ===== زر الرجوع في الهاتف: يغلق القائمة الجانبية أو النافذة المنبثقة =====
         window.addEventListener('popstate', () => {
+            if (mobileMenuOpen) {
+                closeMobileMenu(false);
+                return;
+            }
             if (ideaModalOpen) {
                 ideaOverlay.style.display = 'none';
                 document.body.style.overflow = '';
@@ -1149,7 +1285,10 @@
         });
 
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && ideaModalOpen) closeIdeaModal();
+            if (e.key === 'Escape') {
+                if (ideaModalOpen) closeIdeaModal();
+                if (mobileMenuOpen) closeMobileMenu();
+            }
         });
 
         ideaDesc.addEventListener('input', () => {
