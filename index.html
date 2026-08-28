@@ -77,6 +77,18 @@
             transition: width 0.1s linear;
         }
 
+        /* ===== تعديلات الاتجاه للغة الإنجليزية (LTR) ===== */
+        [dir="ltr"] #progressBar { right: auto; left: 0; border-radius: 0 0 4px 0; }
+        [dir="ltr"] .nav-links a::after { right: auto; left: 0; }
+        [dir="ltr"] .field-group { text-align: left; }
+        [dir="ltr"] .field-group label .req { margin-right: 0; margin-left: 2px; }
+        [dir="ltr"] .char-counter { text-align: right; }
+        [dir="ltr"] .select-wrapper select { padding-left: 16px; padding-right: 44px; }
+        [dir="ltr"] .select-wrapper::after { left: auto; right: 16px; }
+        [dir="ltr"] .select-wrapper::before { right: auto; left: 16px; }
+        [dir="ltr"] .idea-close { left: auto; right: 16px; }
+        [dir="ltr"] .welcome-progress { right: auto; left: 0; }
+
         /* ===== الرسالة الترحيبية العصرية ===== */
         .welcome-toast {
             position: fixed;
@@ -161,13 +173,20 @@
         .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
 
         .nav-actions { display: flex; align-items: center; gap: 8px; }
-        .theme-toggle {
+        .theme-toggle,
+        .lang-toggle {
             background: var(--bg-card); border: 1px solid var(--border-glass);
             border-radius: 50%; width: 42px; height: 42px;
             display: flex; align-items: center; justify-content: center;
             color: var(--text-secondary); font-size: 17px; cursor: pointer; transition: all 0.25s ease;
         }
+        .lang-toggle {
+            font-size: 13px; font-weight: 900;
+            font-family: 'Cairo', sans-serif;
+            letter-spacing: 0.5px;
+        }
         .theme-toggle:hover { background: var(--bg-card-hover); color: var(--text-primary); transform: scale(1.06) rotate(12deg); }
+        .lang-toggle:hover { background: var(--bg-card-hover); color: var(--accent); transform: scale(1.06) rotate(-12deg); border-color: var(--accent); }
 
         .menu-toggle { display: none; background: none; border: none; color: var(--text-primary); font-size: 26px; cursor: pointer; padding: 4px; }
 
@@ -754,6 +773,8 @@
             .idea-card h3 { font-size: 19px; }
             .social-icons { gap: 8px; }
             .social-icon { width: 44px; height: 44px; font-size: 18px; }
+            .theme-toggle, .lang-toggle { width: 38px; height: 38px; }
+            .lang-toggle { font-size: 11px; }
         }
 
         @media (max-width: 360px) {
@@ -768,20 +789,21 @@
 
     <nav class="navbar" id="navbar">
         <div class="container">
-            <a href="#hero" class="nav-logo">عبد<span>العزيز</span></a>
+            <a href="#hero" class="nav-logo" data-i18n="nav_logo">عبد<span>العزيز</span></a>
 
             <ul class="nav-links" id="navLinks">
-                <li><a href="#hero" class="active">الرئيسية</a></li>
-                <li><a href="#about">نبذة عني</a></li>
-                <li><a href="#services">مهاراتي</a></li>
-                <li><a href="#contact">تواصل معي</a></li>
+                <li><a href="#hero" class="active" data-i18n="nav_home">الرئيسية</a></li>
+                <li><a href="#about" data-i18n="nav_about">نبذة عني</a></li>
+                <li><a href="#services" data-i18n="nav_services">مهاراتي</a></li>
+                <li><a href="#contact" data-i18n="nav_contact">تواصل معي</a></li>
             </ul>
 
             <div class="nav-actions">
-                <button class="theme-toggle" id="themeToggle" aria-label="تبديل الوضع">
+                <button class="lang-toggle" id="langToggle" data-i18n-aria="lang_aria" aria-label="Switch language">EN</button>
+                <button class="theme-toggle" id="themeToggle" data-i18n-aria="theme_aria" aria-label="تبديل الوضع">
                     <i class="fas fa-sun"></i>
                 </button>
-                <button class="menu-toggle" id="menuToggle" aria-label="القائمة">
+                <button class="menu-toggle" id="menuToggle" data-i18n-aria="menu_aria" aria-label="القائمة">
                     <i class="fas fa-bars"></i>
                 </button>
             </div>
@@ -791,26 +813,26 @@
     <section class="hero" id="hero">
         <div class="container hero-grid">
             <div class="hero-content">
-                <div class="hero-badge"><span class="dot"></span> متاح لمشاريع جديدة</div>
-                <h1>عبدالعزيز <span class="highlight">خليفة</span></h1>
-                <div class="hero-subtitle">UX/UI Designer &amp; AI-Assisted Developer</div>
-                <p class="hero-desc">
+                <div class="hero-badge"><span class="dot"></span> <span data-i18n="hero_badge">متاح لمشاريع جديدة</span></div>
+                <h1 data-i18n="hero_title">عبدالعزيز <span class="highlight">خليفة</span></h1>
+                <div class="hero-subtitle" data-i18n="hero_subtitle">UX/UI Designer &amp; AI-Assisted Developer</div>
+                <p class="hero-desc" data-i18n="hero_desc">
                     أصمم وأطور تجارب رقمية عصرية تجمع بين التصميم، البرمجة والذكاء الاصطناعي.
                 </p>
-                <button type="button" class="hero-btn" onclick="openIdeaModal()">
+                <button type="button" class="hero-btn" onclick="openIdeaModal()" data-i18n="hero_btn">
                     <i class="fa-brands fa-whatsapp"></i> 💬 تواصل معي
                 </button>
                 <div class="hero-stats">
-                    <div class="stat"><b>+20</b><span>مشروع منجز</span></div>
-                    <div class="stat"><b>+15</b><span>عميل سعيد</span></div>
-                    <div class="stat"><b>3+</b><span>سنوات خبرة</span></div>
+                    <div class="stat"><b>+20</b><span data-i18n="stat_projects">مشروع منجز</span></div>
+                    <div class="stat"><b>+15</b><span data-i18n="stat_clients">عميل سعيد</span></div>
+                    <div class="stat"><b>3+</b><span data-i18n="stat_years">سنوات خبرة</span></div>
                 </div>
             </div>
 
             <div class="hero-visual">
                 <div class="hero-glow"></div>
                 <div class="orbit-ring"></div>
-                <img src="profile.jpg" alt="عبدالعزيز خليفة" class="hero-avatar" draggable="false" />
+                <img src="profile.jpg" alt="عبدالعزيز خليفة" class="hero-avatar" draggable="false" data-i18n-alt="avatar_alt" />
                 <div class="chip chip-1"><i class="fas fa-pen-nib"></i> UX/UI</div>
                 <div class="chip chip-2"><i class="fas fa-robot"></i> AI Tools</div>
                 <div class="chip chip-3"><i class="fas fa-code"></i> Web Dev</div>
@@ -839,8 +861,8 @@
             <div class="about-card reveal">
                 <div class="about-icon"><i class="fas fa-user-astronaut"></i></div>
                 <div class="about-text">
-                    <h2 class="section-title" style="margin-bottom:12px;">نبذة <span>عنّي</span></h2>
-                    <p>
+                    <h2 class="section-title" style="margin-bottom:12px;" data-i18n="about_title">نبذة <span>عنّي</span></h2>
+                    <p data-i18n="about_p">
                         أنا عبدالعزيز، مصمم UX/UI ومطور حلول رقمية، أعمل على تصميم واجهات التطبيقات والمواقع وتطوير أفكار رقمية باستخدام البرمجة والذكاء الاصطناعي.
                         <br><br>
                         أركز على الجمع بين التصميم الجميل، سهولة الاستخدام، وتحويل الأفكار إلى منتجات رقمية عملية.
@@ -853,29 +875,29 @@
     <section id="services">
         <div class="container">
             <div class="text-center reveal">
-                <h2 class="section-title">ماذا أستطيع أن <span>أقدم لك؟</span></h2>
-                <p class="section-sub">خدمات أصممها بعناية لتحويل فكرتك إلى منتج رقمي متكامل.</p>
+                <h2 class="section-title" data-i18n="services_title">ماذا أستطيع أن <span>أقدم لك؟</span></h2>
+                <p class="section-sub" data-i18n="services_sub">خدمات أصممها بعناية لتحويل فكرتك إلى منتج رقمي متكامل.</p>
             </div>
             <div class="services-grid">
                 <div class="service-card reveal">
                     <span class="icon"><i class="fas fa-paint-brush"></i></span>
-                    <h3>🎨 تصميم UX/UI</h3>
-                    <p>تصميم تطبيقات ومواقع عصرية مع التركيز على تجربة المستخدم وسهولة الاستخدام.</p>
+                    <h3 data-i18n="svc1_title">🎨 تصميم UX/UI</h3>
+                    <p data-i18n="svc1_desc">تصميم تطبيقات ومواقع عصرية مع التركيز على تجربة المستخدم وسهولة الاستخدام.</p>
                 </div>
                 <div class="service-card reveal">
                     <span class="icon"><i class="fas fa-code"></i></span>
-                    <h3>💻 تطوير المواقع والتطبيقات</h3>
-                    <p>تحويل الأفكار والتصاميم إلى منتجات رقمية عملية ومتجاوبة.</p>
+                    <h3 data-i18n="svc2_title">💻 تطوير المواقع والتطبيقات</h3>
+                    <p data-i18n="svc2_desc">تحويل الأفكار والتصاميم إلى منتجات رقمية عملية ومتجاوبة.</p>
                 </div>
                 <div class="service-card reveal">
                     <span class="icon"><i class="fas fa-robot"></i></span>
-                    <h3>🤖 حلول باستخدام الذكاء الاصطناعي</h3>
-                    <p>استخدام أدوات الذكاء الاصطناعي لتسريع التصميم والتطوير وبناء حلول رقمية مبتكرة.</p>
+                    <h3 data-i18n="svc3_title">🤖 حلول باستخدام الذكاء الاصطناعي</h3>
+                    <p data-i18n="svc3_desc">استخدام أدوات الذكاء الاصطناعي لتسريع التصميم والتطوير وبناء حلول رقمية مبتكرة.</p>
                 </div>
                 <div class="service-card reveal">
                     <span class="icon"><i class="fas fa-globe"></i></span>
-                    <h3>📱 تطبيقات الويب</h3>
-                    <p>إنشاء تجارب ويب حديثة ومتوافقة مع الجوال والكمبيوتر.</p>
+                    <h3 data-i18n="svc4_title">📱 تطبيقات الويب</h3>
+                    <p data-i18n="svc4_desc">إنشاء تجارب ويب حديثة ومتوافقة مع الجوال والكمبيوتر.</p>
                 </div>
             </div>
         </div>
@@ -884,21 +906,21 @@
     <section id="why">
         <div class="container">
             <div class="text-center reveal">
-                <h2 class="section-title">لماذا أعمل بهذه <span>الطريقة؟</span></h2>
-                <p class="section-sub">مبادئ أقوم عليها في كل مشروع.</p>
+                <h2 class="section-title" data-i18n="why_title">لماذا أعمل بهذه <span>الطريقة؟</span></h2>
+                <p class="section-sub" data-i18n="why_sub">مبادئ أقوم عليها في كل مشروع.</p>
             </div>
             <div class="why-grid">
                 <div class="why-item reveal">
                     <span class="icon"><i class="fas fa-bullseye"></i></span>
-                    <h4>🎯 أفكر في تجربة المستخدم أولًا.</h4>
+                    <h4 data-i18n="why1">🎯 أفكر في تجربة المستخدم أولًا.</h4>
                 </div>
                 <div class="why-item reveal">
                     <span class="icon"><i class="fas fa-brain"></i></span>
-                    <h4>⚡ أستخدم الذكاء الاصطناعي لتسريع التصميم والتطوير.</h4>
+                    <h4 data-i18n="why2">⚡ أستخدم الذكاء الاصطناعي لتسريع التصميم والتطوير.</h4>
                 </div>
                 <div class="why-item reveal">
                     <span class="icon"><i class="fas fa-star"></i></span>
-                    <h4>✨ أهتم بالتفاصيل البصرية والوظيفية.</h4>
+                    <h4 data-i18n="why3">✨ أهتم بالتفاصيل البصرية والوظيفية.</h4>
                 </div>
             </div>
         </div>
@@ -907,11 +929,11 @@
     <section id="contact" class="contact-section">
         <div class="container">
             <div class="reveal">
-                <h2 class="section-title">لديك <span>فكرة؟</span></h2>
-                <p style="color:var(--text-secondary); font-size:20px; font-weight:600;">لنحوّلها إلى شيء حقيقي.</p>
+                <h2 class="section-title" data-i18n="contact_title">لديك <span>فكرة؟</span></h2>
+                <p style="color:var(--text-secondary); font-size:20px; font-weight:600;" data-i18n="contact_sub">لنحوّلها إلى شيء حقيقي.</p>
             </div>
             <div class="contact-buttons reveal">
-                <button type="button" class="contact-btn contact-btn-wa" onclick="openIdeaModal()">
+                <button type="button" class="contact-btn contact-btn-wa" onclick="openIdeaModal()" data-i18n="contact_btn">
                     <i class="fa-brands fa-whatsapp"></i> 💬 أرسل فكرتك عبر واتساب
                 </button>
             </div>
@@ -940,38 +962,38 @@
 
     <footer>
         <div class="container">
-            &copy; <span id="year"></span> Abdul3ziz95 &bull; جميع الحقوق محفوظة
+            &copy; <span id="year"></span> Abdul3ziz95 &bull; <span data-i18n="footer_rights">جميع الحقوق محفوظة</span>
         </div>
     </footer>
 
     <!-- ===== النافذة المنبثقة: أرسل فكرتك ===== -->
     <div id="ideaOverlay" class="idea-overlay" style="display: none;">
         <div class="idea-card">
-            <button type="button" class="idea-close" onclick="closeIdeaModal()" aria-label="إغلاق">
+            <button type="button" class="idea-close" onclick="closeIdeaModal()" data-i18n-aria="close_aria" aria-label="إغلاق">
                 <i class="fas fa-times"></i>
             </button>
 
             <div class="idea-icon"><i class="fa-brands fa-whatsapp"></i></div>
-            <h3>أرسل فكرتك 💡</h3>
-            <p class="idea-sub">اختر نوع مشروعك أو اكتب تفاصيلك يدوياً</p>
+            <h3 data-i18n="modal_title">أرسل فكرتك 💡</h3>
+            <p class="idea-sub" data-i18n="modal_sub">اختر نوع مشروعك أو اكتب تفاصيلك يدوياً</p>
 
             <form id="ideaForm" novalidate>
                 <div class="field-group">
                     <label for="projectType">
                         <i class="fas fa-layer-group"></i>
-                        نوع المشروع <span class="req">*</span>
+                        <span data-i18n="label_type">نوع المشروع</span> <span class="req">*</span>
                     </label>
                     <div class="select-wrapper">
                         <select id="projectType" required>
-                            <option value="company">🏢 موقع تعريفي لشركة</option>
-                            <option value="personal">👤 موقع شخصي</option>
-                            <option value="bukhari">🍗 مينو مطعم بخاري</option>
-                            <option value="foul">🥘 مينو فوال</option>
-                            <option value="buffet">🌯 مينو بوفيه</option>
-                            <option value="salon">💇‍♀️💇‍♂️ حجز موعد للصالونات</option>
-                            <option value="clinic">🩺 حجز موعد للعيادات</option>
-                            <option value="attendance">📋 تطبيق لتسجيل الحضور والانصراف</option>
-                            <option value="other" selected>✨ آخر (سأكتب بنفسي)</option>
+                            <option value="company" data-i18n="opt_company">🏢 موقع تعريفي لشركة</option>
+                            <option value="personal" data-i18n="opt_personal">👤 موقع شخصي</option>
+                            <option value="bukhari" data-i18n="opt_bukhari">🍗 مينو مطعم بخاري</option>
+                            <option value="foul" data-i18n="opt_foul">🥘 مينو فوال</option>
+                            <option value="buffet" data-i18n="opt_buffet">🌯 مينو بوفيه</option>
+                            <option value="salon" data-i18n="opt_salon">💇‍♀️💇‍♂️ حجز موعد للصالونات</option>
+                            <option value="clinic" data-i18n="opt_clinic">🩺 حجز موعد للعيادات</option>
+                            <option value="attendance" data-i18n="opt_attendance">📋 تطبيق لتسجيل الحضور والانصراف</option>
+                            <option value="other" selected data-i18n="opt_other">✨ آخر (سأكتب بنفسي)</option>
                         </select>
                     </div>
                 </div>
@@ -979,26 +1001,26 @@
                 <div class="field-group">
                     <label for="ideaTitle">
                         <i class="fas fa-heading"></i>
-                        عنوان الفكرة <span class="req">*</span>
+                        <span data-i18n="label_title">عنوان الفكرة</span> <span class="req">*</span>
                     </label>
-                    <input type="text" id="ideaTitle" placeholder="مثال: منصة حجز مواعيد للعيادات" maxlength="80" autocomplete="off" />
+                    <input type="text" id="ideaTitle" placeholder="مثال: منصة حجز مواعيد للعيادات" maxlength="80" autocomplete="off" data-i18n-placeholder="ph_title" />
                 </div>
 
                 <div class="field-group">
                     <label for="ideaDesc">
                         <i class="fas fa-align-right"></i>
-                        وصف الفكرة باختصار <span class="req">*</span>
+                        <span data-i18n="label_desc">وصف الفكرة باختصار</span> <span class="req">*</span>
                     </label>
-                    <textarea id="ideaDesc" placeholder="اشرح فكرتك باختصار: ما المشكلة التي تحلها؟ ولمن هذا المنتج؟" maxlength="600"></textarea>
+                    <textarea id="ideaDesc" placeholder="اشرح فكرتك باختصار: ما المشكلة التي تحلها؟ ولمن هذا المنتج؟" maxlength="600" data-i18n-placeholder="ph_desc"></textarea>
                     <span class="char-counter" id="charCounter">0 / 600</span>
                 </div>
 
-                <button type="submit" class="idea-send" id="sendIdeaBtn">
+                <button type="submit" class="idea-send" id="sendIdeaBtn" data-i18n="send_btn">
                     <i class="fa-brands fa-whatsapp"></i> إرسال عبر واتساب
                 </button>
             </form>
 
-            <div class="idea-note">
+            <div class="idea-note" data-i18n="modal_note">
                 <i class="fas fa-lock"></i> سيتم فتح واتساب برسالة جاهزة تحتوي على تفاصيل فكرتك
             </div>
         </div>
@@ -1034,40 +1056,295 @@
             applyTheme(nextTheme);
         });
 
+        // =====================================================
+        // ===== نظام الترجمة الكامل (عربي / إنجليزي) =====
+        // =====================================================
+        const translations = {
+            ar: {
+                pageTitle: 'عبدالعزيز - مصمم UX/UI ومطور حلول رقمية',
+                nav_logo: 'عبد<span>العزيز</span>',
+                nav_home: 'الرئيسية',
+                nav_about: 'نبذة عني',
+                nav_services: 'مهاراتي',
+                nav_contact: 'تواصل معي',
+                theme_aria: 'تبديل الوضع',
+                lang_aria: 'تبديل اللغة',
+                menu_aria: 'القائمة',
+                hero_badge: 'متاح لمشاريع جديدة',
+                hero_title: 'عبدالعزيز <span class="highlight">خليفة</span>',
+                hero_subtitle: 'UX/UI Designer &amp; AI-Assisted Developer',
+                hero_desc: 'أصمم وأطور تجارب رقمية عصرية تجمع بين التصميم، البرمجة والذكاء الاصطناعي.',
+                hero_btn: '<i class="fa-brands fa-whatsapp"></i> 💬 تواصل معي',
+                stat_projects: 'مشروع منجز',
+                stat_clients: 'عميل سعيد',
+                stat_years: 'سنوات خبرة',
+                avatar_alt: 'عبدالعزيز خليفة',
+                about_title: 'نبذة <span>عنّي</span>',
+                about_p: 'أنا عبدالعزيز، مصمم UX/UI ومطور حلول رقمية، أعمل على تصميم واجهات التطبيقات والمواقع وتطوير أفكار رقمية باستخدام البرمجة والذكاء الاصطناعي.<br><br>أركز على الجمع بين التصميم الجميل، سهولة الاستخدام، وتحويل الأفكار إلى منتجات رقمية عملية.',
+                services_title: 'ماذا أستطيع أن <span>أقدم لك؟</span>',
+                services_sub: 'خدمات أصممها بعناية لتحويل فكرتك إلى منتج رقمي متكامل.',
+                svc1_title: '🎨 تصميم UX/UI',
+                svc1_desc: 'تصميم تطبيقات ومواقع عصرية مع التركيز على تجربة المستخدم وسهولة الاستخدام.',
+                svc2_title: '💻 تطوير المواقع والتطبيقات',
+                svc2_desc: 'تحويل الأفكار والتصاميم إلى منتجات رقمية عملية ومتجاوبة.',
+                svc3_title: '🤖 حلول باستخدام الذكاء الاصطناعي',
+                svc3_desc: 'استخدام أدوات الذكاء الاصطناعي لتسريع التصميم والتطوير وبناء حلول رقمية مبتكرة.',
+                svc4_title: '📱 تطبيقات الويب',
+                svc4_desc: 'إنشاء تجارب ويب حديثة ومتوافقة مع الجوال والكمبيوتر.',
+                why_title: 'لماذا أعمل بهذه <span>الطريقة؟</span>',
+                why_sub: 'مبادئ أقوم عليها في كل مشروع.',
+                why1: '🎯 أفكر في تجربة المستخدم أولًا.',
+                why2: '⚡ أستخدم الذكاء الاصطناعي لتسريع التصميم والتطوير.',
+                why3: '✨ أهتم بالتفاصيل البصرية والوظيفية.',
+                contact_title: 'لديك <span>فكرة؟</span>',
+                contact_sub: 'لنحوّلها إلى شيء حقيقي.',
+                contact_btn: '<i class="fa-brands fa-whatsapp"></i> 💬 أرسل فكرتك عبر واتساب',
+                footer_rights: 'جميع الحقوق محفوظة',
+                modal_title: 'أرسل فكرتك 💡',
+                modal_sub: 'اختر نوع مشروعك أو اكتب تفاصيلك يدوياً',
+                close_aria: 'إغلاق',
+                label_type: 'نوع المشروع',
+                opt_company: '🏢 موقع تعريفي لشركة',
+                opt_personal: '👤 موقع شخصي',
+                opt_bukhari: '🍗 مينو مطعم بخاري',
+                opt_foul: '🥘 مينو فوال',
+                opt_buffet: '🌯 مينو بوفيه',
+                opt_salon: '💇‍♀️‍♂️ حجز موعد للصالونات',
+                opt_clinic: '🩺 حجز موعد للعيادات',
+                opt_attendance: '📋 تطبيق لتسجيل الحضور والانصراف',
+                opt_other: '✨ آخر (سأكتب بنفسي)',
+                label_title: 'عنوان الفكرة',
+                ph_title: 'مثال: منصة حجز مواعيد للعيادات',
+                label_desc: 'وصف الفكرة باختصار',
+                ph_desc: 'اشرح فكرتك باختصار: ما المشكلة التي تحلها؟ ولمن هذا المنتج؟',
+                send_btn: '<i class="fa-brands fa-whatsapp"></i> إرسال عبر واتساب',
+                sent_btn: '<i class="fas fa-check"></i> تم تجهيز فكرتك!',
+                modal_note: '<i class="fas fa-lock"></i> سيتم فتح واتساب برسالة جاهزة تحتوي على تفاصيل فكرتك',
+                welcome_morning: 'صباح الخير! أهلاً بك في موقع <span class="accent-name">عبدالعزيز</span>',
+                welcome_noon: 'نهارك سعيد! أهلاً بك في موقع <span class="accent-name">عبدالعزيز</span>',
+                welcome_evening: 'مساء الخير! أهلاً بك في موقع <span class="accent-name">عبدالعزيز</span>',
+                wa_greeting: 'مرحباً عبدالعزيز 👋',
+                wa_intro: 'لدي فكرة أود تحويلها إلى منتج رقمي:',
+                wa_type: '🎯 نوع المشروع: ',
+                wa_title: '💡 عنوان الفكرة: ',
+                wa_desc: '📝 وصف الفكرة: '
+            },
+            en: {
+                pageTitle: 'Abdulaziz - UX/UI Designer & Digital Solutions Developer',
+                nav_logo: 'Abdul<span>aziz</span>',
+                nav_home: 'Home',
+                nav_about: 'About Me',
+                nav_services: 'My Skills',
+                nav_contact: 'Contact Me',
+                theme_aria: 'Toggle theme',
+                lang_aria: 'Switch language',
+                menu_aria: 'Menu',
+                hero_badge: 'Available for new projects',
+                hero_title: 'Abdulaziz <span class="highlight">Khalifa</span>',
+                hero_subtitle: 'UX/UI Designer &amp; AI-Assisted Developer',
+                hero_desc: 'I design and develop modern digital experiences that blend design, coding, and artificial intelligence.',
+                hero_btn: '<i class="fa-brands fa-whatsapp"></i> 💬 Contact Me',
+                stat_projects: 'Projects Completed',
+                stat_clients: 'Happy Clients',
+                stat_years: 'Years of Experience',
+                avatar_alt: 'Abdulaziz Khalifa',
+                about_title: 'About <span>Me</span>',
+                about_p: "I'm Abdulaziz, a UX/UI designer and digital solutions developer. I design app and website interfaces and build digital ideas using coding and artificial intelligence.<br><br>I focus on combining beautiful design, ease of use, and turning ideas into practical digital products.",
+                services_title: 'What Can I <span>Offer You?</span>',
+                services_sub: 'Services I carefully craft to turn your idea into a complete digital product.',
+                svc1_title: '🎨 UX/UI Design',
+                svc1_desc: 'Designing modern apps and websites with a focus on user experience and ease of use.',
+                svc2_title: '💻 Web & App Development',
+                svc2_desc: 'Turning ideas and designs into practical, responsive digital products.',
+                svc3_title: '🤖 AI-Powered Solutions',
+                svc3_desc: 'Using AI tools to accelerate design and development and build innovative digital solutions.',
+                svc4_title: '📱 Web Applications',
+                svc4_desc: 'Creating modern web experiences compatible with mobile and desktop.',
+                why_title: 'Why Do I Work This <span>Way?</span>',
+                why_sub: 'Principles I stand on in every project.',
+                why1: '🎯 I think about the user experience first.',
+                why2: '⚡ I use AI to accelerate design and development.',
+                why3: '✨ I pay attention to visual and functional details.',
+                contact_title: 'Got an <span>Idea?</span>',
+                contact_sub: "Let's turn it into something real.",
+                contact_btn: '<i class="fa-brands fa-whatsapp"></i> 💬 Send Your Idea via WhatsApp',
+                footer_rights: 'All rights reserved',
+                modal_title: 'Send Your Idea 💡',
+                modal_sub: 'Choose your project type or write your details manually',
+                close_aria: 'Close',
+                label_type: 'Project Type',
+                opt_company: '🏢 Company Website',
+                opt_personal: '👤 Personal Website',
+                opt_bukhari: '🍗 Bukhari Restaurant Menu',
+                opt_foul: '🥘 Foul & Falafel Menu',
+                opt_buffet: '🌯 Buffet Menu',
+                opt_salon: '💇‍♀️💇‍♂️ Salon Appointment Booking',
+                opt_clinic: '🩺 Clinic Appointment Booking',
+                opt_attendance: '📋 Attendance & Departure Tracking App',
+                opt_other: '✨ Other (I will write it myself)',
+                label_title: 'Idea Title',
+                ph_title: 'e.g., Clinic appointment booking platform',
+                label_desc: 'Brief Idea Description',
+                ph_desc: 'Briefly explain your idea: what problem does it solve? Who is this product for?',
+                send_btn: '<i class="fa-brands fa-whatsapp"></i> Send via WhatsApp',
+                sent_btn: '<i class="fas fa-check"></i> Your idea is ready!',
+                modal_note: '<i class="fas fa-lock"></i> WhatsApp will open with a ready-made message containing your idea details',
+                welcome_morning: 'Good morning! Welcome to <span class="accent-name">Abdulaziz</span>&#39;s website',
+                welcome_noon: 'Have a wonderful day! Welcome to <span class="accent-name">Abdulaziz</span>&#39;s website',
+                welcome_evening: 'Good evening! Welcome to <span class="accent-name">Abdulaziz</span>&#39;s website',
+                wa_greeting: 'Hello Abdulaziz 👋',
+                wa_intro: 'I have an idea I would like to turn into a digital product:',
+                wa_type: '🎯 Project Type: ',
+                wa_title: '💡 Idea Title: ',
+                wa_desc: '📝 Idea Description: '
+            }
+        };
+
+        // ===== القوالب الجاهزة باللغتين =====
+        const projectTemplates = {
+            ar: {
+                company: {
+                    title: 'موقع تعريفي احترافي للشركة',
+                    desc: 'أرغب في تصميم موقع تعريفي عصري يعكس هوية شركتي بشكل احترافي. الموقع يجب أن يتضمن صفحات (الرئيسية، من نحن، خدماتنا، أعمالنا، تواصل معنا) مع تصميم متجاوب يعمل بسلاسة على جميع الأجهزة. أريد لمسات تفاعلية وحركات سلسة تعطي انطباعاً حديثاً، مع تحسين محركات البحث (SEO) وسرعة تحميل عالية.'
+                },
+                personal: {
+                    title: 'موقع شخصي احترافي',
+                    desc: 'أريد موقعاً شخصياً أنيقاً يعرض سيرتي الذاتية، مهاراتي، وأعمالي بتصميم عصري وجذاب. يجب أن يتضمن أقساماً للتعريف بي، معرض أعمالي، خبراتي، ووسائل التواصل معي. أريد تصميماً فريداً يميزني عن الآخرين مع تأثيرات حركية سلسة وتجربة مستخدم ممتازة على جميع الأجهزة.'
+                },
+                bukhari: {
+                    title: 'مينو رقمي لمطعم بخاري',
+                    desc: 'أرغب في تصميم مينو رقمي تفاعلي لمطعم بخاري يعرض الأطباق بشكل شهي وجذاب مع صور عالية الجودة. المنيو يجب أن يكون مقسماً إلى أقسام واضحة (مقبلات، أطباق رئيسية، مشويات، مشروبات) مع الأسعار والوصف. أريد تصميماً يعكس أصالة المطبخ البخاري بلمسة عصرية، وسرعة تحميل عالية، وإمكانية الوصول عبر رمز QR.'
+                },
+                foul: {
+                    title: 'مينو رقمي لمطعم فول وفلافل',
+                    desc: 'أحتاج إلى مينو رقمي عصري لمطعم فول وفلافل يعرض أصناف الفطور والغداء بتصميم دافئ وجذاب. المنيو يجب أن يشمل أقساماً (فول، فلافل، سندويشات، إفطار شعبي، وجبات عائلية) مع الصور والأسعار. أريد تصميماً يعكس أجواء المطعم الشعبية بلمسة حديثة، وسهولة التصفح من الجوال، وإمكانية المشاركة عبر رابط أو QR Code.'
+                },
+                buffet: {
+                    title: 'مينو رقمي لبوفيه مفتوح',
+                    desc: 'أرغب في تصميم مينو رقمي شامل لمطعم بوفيه مفتوح يعرض جميع الأصناف المتوفرة (مشويات، مأكولات بحرية، سلطات، حلويات، مشروبات) مع التفاصيل والأسعار. أريد إضافة ميزة فلترة الأصناف حسب النوع، وعرض العروض اليومية، وتصميم تفاعلي يسهل على الزبون تصفح المنيو من خلال رابط أو QR Code.'
+                },
+                salon: {
+                    title: 'نظام حجز موعد للصالونات',
+                    desc: 'أرغب في تطوير نظام حجز موعد عصري للصالونات يتيح للعملاء حجز مواعيدهم بسهولة عبر واجهة أنيقة وبسيطة. النظام يجب أن يعرض الخدمات المتاحة، الأسعار، وأوقات الفراغ بشكل مرئي وجذاب. يتضمن لوحة تحكم لإدارة الحجوزات، وإشعارات تذكير تلقائية عبر واتساب، مع إمكانية الدفع الإلكتروني أو عند الاستلام.'
+                },
+                clinic: {
+                    title: 'نظام حجز موعد للعيادات',
+                    desc: 'أحتاج إلى نظام حجز موعد ذكي وآمن للعيادات الطبية يتيح للمرضى حجز مواعيدهم بسهولة مع اختيار الطبيب والتخصص والوقت المناسب. النظام يجب أن يتضمن لوحة تحكم للأطباء، وإرسال تذكيرات تلقائية، مع ضمان خصوصية بيانات المرضى وتشفيرها بالكامل وفقاً لأعلى معايير الأمان والامتثال للوائح الصحية.'
+                },
+                attendance: {
+                    title: 'تطبيق لتسجيل الحضور والانصراف',
+                    desc: 'أرغب في تطوير تطبيق عصري وآمن لتسجيل حضور وانصراف الموظفين، يعتمد على تقنيات حديثة مثل التعرف على الوجه أو البصمة أو رمز QR. التطبيق يجب أن يوفر لوحة تحكم للمدير لمتابعة سجلات الحضور، وتقارير شهرية، وإشعارات فورية. مع ضمان أعلى مستويات الأمان وحماية البيانات، وتشفير المعلومات، وصلاحيات وصول محددة.'
+                },
+                other: { title: '', desc: '' }
+            },
+            en: {
+                company: {
+                    title: 'Professional Company Website',
+                    desc: "I would like a modern corporate website that professionally reflects my company's identity. The site should include pages (Home, About Us, Services, Portfolio, Contact) with a fully responsive design that works smoothly on all devices. I want interactive touches and smooth animations that give a modern impression, along with SEO optimization and fast loading speeds."
+                },
+                personal: {
+                    title: 'Professional Personal Website',
+                    desc: 'I want an elegant personal website that showcases my resume, skills, and work with a modern, attractive design. It should include sections about me, a portfolio gallery, my experience, and ways to contact me. I want a unique design that sets me apart, with smooth animations and an excellent user experience on all devices.'
+                },
+                bukhari: {
+                    title: 'Digital Menu for Bukhari Restaurant',
+                    desc: 'I would like an interactive digital menu for a Bukhari restaurant that presents dishes appetizingly with high-quality images. The menu should be divided into clear sections (appetizers, main dishes, grilled items, beverages) with prices and descriptions. I want a design that reflects the authenticity of Bukhari cuisine with a modern touch, fast loading, and QR code access.'
+                },
+                foul: {
+                    title: 'Digital Menu for Foul & Falafel Restaurant',
+                    desc: "I need a modern digital menu for a foul and falafel restaurant showcasing breakfast and lunch items with a warm, appealing design. The menu should include sections (foul, falafel, sandwiches, traditional breakfast, family meals) with images and prices. I want a design that reflects the restaurant's popular atmosphere with a modern touch, easy mobile browsing, and sharing via link or QR code."
+                },
+                buffet: {
+                    title: 'Digital Menu for Open Buffet',
+                    desc: 'I would like a comprehensive digital menu for an open buffet restaurant displaying all available items (grills, seafood, salads, desserts, beverages) with details and prices. I want to add filtering by category, display daily offers, and an interactive design that makes it easy for customers to browse the menu via a link or QR code.'
+                },
+                salon: {
+                    title: 'Salon Appointment Booking System',
+                    desc: 'I would like a modern salon appointment booking system that lets clients book easily through an elegant, simple interface. The system should display available services, prices, and free slots visually and attractively. It includes an admin dashboard for managing bookings, automatic WhatsApp reminders, and online or on-site payment options.'
+                },
+                clinic: {
+                    title: 'Clinic Appointment Booking System',
+                    desc: 'I need a smart, secure clinic appointment booking system that lets patients book easily by choosing the doctor, specialty, and suitable time. The system should include a dashboard for doctors, automatic reminders, and full privacy and encryption of patient data in compliance with the highest security standards and health regulations.'
+                },
+                attendance: {
+                    title: 'Attendance & Departure Tracking App',
+                    desc: 'I would like a modern, secure app for tracking employee attendance and departure, relying on modern technologies such as face recognition, fingerprint, or QR code. The app should provide an admin dashboard to follow attendance records, monthly reports, and instant notifications, with the highest levels of security, data protection, encryption, and defined access permissions.'
+                },
+                other: { title: '', desc: '' }
+            }
+        };
+
+        // ===== تطبيق اللغة =====
+        const langToggle = document.getElementById('langToggle');
+        let currentLang = localStorage.getItem('lang') || 'ar';
+
+        function applyLang(lang) {
+            currentLang = lang;
+            document.documentElement.setAttribute('lang', lang);
+            document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+            localStorage.setItem('lang', lang);
+            document.title = translations[lang].pageTitle;
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key] !== undefined) el.innerHTML = translations[lang][key];
+            });
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (translations[lang][key] !== undefined) el.setAttribute('placeholder', translations[lang][key]);
+            });
+            document.querySelectorAll('[data-i18n-alt]').forEach(el => {
+                const key = el.getAttribute('data-i18n-alt');
+                if (translations[lang][key] !== undefined) el.setAttribute('alt', translations[lang][key]);
+            });
+            document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+                const key = el.getAttribute('data-i18n-aria');
+                if (translations[lang][key] !== undefined) el.setAttribute('aria-label', translations[lang][key]);
+            });
+
+            langToggle.textContent = lang === 'ar' ? 'EN' : 'AR';
+
+            // إعادة ملء القالب إذا كان هناك نوع مشروع محدد (ليطابق اللغة)
+            if (typeof projectType !== 'undefined' && projectType.value !== 'other') {
+                fillFromTemplate(projectType.value, false);
+            }
+        }
+
+        langToggle.addEventListener('click', () => {
+            applyLang(currentLang === 'ar' ? 'en' : 'ar');
+        });
+
         // ===== الرسالة الترحيبية حسب الوقت المحلي =====
         function showWelcomeMessage() {
             const hour = new Date().getHours();
-            let emoji, message;
+            let emoji, messageKey;
 
             if (hour >= 5 && hour < 12) {
                 emoji = '☀️';
-                message = 'صباح الخير! أهلاً بك في موقع <span class="accent-name">عبدالعزيز</span>';
+                messageKey = 'welcome_morning';
             } else if (hour >= 12 && hour < 17) {
                 emoji = '🌤️';
-                message = 'نهارك سعيد! أهلاً بك في موقع <span class="accent-name">عبدالعزيز</span>';
+                messageKey = 'welcome_noon';
             } else {
                 emoji = '🌙';
-                message = 'مساء الخير! أهلاً بك في موقع <span class="accent-name">عبدالعزيز</span>';
+                messageKey = 'welcome_evening';
             }
 
             const toast = document.createElement('div');
             toast.className = 'welcome-toast';
             toast.innerHTML =
                 '<span class="welcome-emoji">' + emoji + '</span>' +
-                '<span class="welcome-text">' + message + '</span>' +
+                '<span class="welcome-text">' + translations[currentLang][messageKey] + '</span>' +
                 '<div class="welcome-progress"></div>';
             document.body.appendChild(toast);
 
-            // إظهار الرسالة بحركة سلسة
             setTimeout(() => toast.classList.add('show'), 400);
 
-            // إخفاء تلقائي بعد 4.5 ثانية
             const hideTimer = setTimeout(() => {
                 toast.classList.remove('show');
                 setTimeout(() => toast.remove(), 600);
             }, 4500);
 
-            // إغلاق يدوي عند النقر على الرسالة
             toast.addEventListener('click', () => {
                 clearTimeout(hideTimer);
                 toast.classList.remove('show');
@@ -1114,7 +1391,6 @@
             }
         });
 
-        // إغلاق القائمة عند النقر خارجها
         document.addEventListener('click', (e) => {
             if (mobileMenuOpen && !navbar.contains(e.target)) {
                 closeMobileMenu();
@@ -1172,75 +1448,43 @@
 
         let ideaModalOpen = false;
 
-        // ===== الأوصاف العصرية =====
-        const projectTemplates = {
-            company: {
-                title: 'موقع تعريفي احترافي للشركة',
-                desc: 'أرغب في تصميم موقع تعريفي عصري يعكس هوية شركتي بشكل احترافي. الموقع يجب أن يتضمن صفحات (الرئيسية، من نحن، خدماتنا، أعمالنا، تواصل معنا) مع تصميم متجاوب يعمل بسلاسة على جميع الأجهزة. أريد لمسات تفاعلية وحركات سلسة تعطي انطباعاً حديثاً، مع تحسين محركات البحث (SEO) وسرعة تحميل عالية.'
-            },
-            personal: {
-                title: 'موقع شخصي احترافي',
-                desc: 'أريد موقعاً شخصياً أنيقاً يعرض سيرتي الذاتية، مهاراتي، وأعمالي بتصميم عصري وجذاب. يجب أن يتضمن أقساماً للتعريف بي، معرض أعمالي، خبراتي، ووسائل التواصل معي. أريد تصميماً فريداً يميزني عن الآخرين مع تأثيرات حركية سلسة وتجربة مستخدم ممتازة على جميع الأجهزة.'
-            },
-            bukhari: {
-                title: 'مينو رقمي لمطعم بخاري',
-                desc: 'أرغب في تصميم مينو رقمي تفاعلي لمطعم بخاري يعرض الأطباق بشكل شهي وجذاب مع صور عالية الجودة. المنيو يجب أن يكون مقسماً إلى أقسام واضحة (مقبلات، أطباق رئيسية، مشويات، مشروبات) مع الأسعار والوصف. أريد تصميماً يعكس أصالة المطبخ البخاري بلمسة عصرية، وسرعة تحميل عالية، وإمكانية الوصول عبر رمز QR.'
-            },
-            foul: {
-                title: 'مينو رقمي لمطعم فول وفلافل',
-                desc: 'أحتاج إلى مينو رقمي عصري لمطعم فول وفلافل يعرض أصناف الفطور والغداء بتصميم دافئ وجذاب. المنيو يجب أن يشمل أقساماً (فول، فلافل، سندويشات، إفطار شعبي، وجبات عائلية) مع الصور والأسعار. أريد تصميماً يعكس أجواء المطعم الشعبية بلمسة حديثة، وسهولة التصفح من الجوال، وإمكانية المشاركة عبر رابط أو QR Code.'
-            },
-            buffet: {
-                title: 'مينو رقمي لبوفيه مفتوح',
-                desc: 'أرغب في تصميم مينو رقمي شامل لمطعم بوفيه مفتوح يعرض جميع الأصناف المتوفرة (مشويات، مأكولات بحرية، سلطات، حلويات، مشروبات) مع التفاصيل والأسعار. أريد إضافة ميزة فلترة الأصناف حسب النوع، وعرض العروض اليومية، وتصميم تفاعلي يسهل على الزبون تصفح المنيو من خلال رابط أو QR Code.'
-            },
-            salon: {
-                title: 'نظام حجز موعد للصالونات',
-                desc: 'أرغب في تطوير نظام حجز موعد عصري للصالونات يتيح للعملاء حجز مواعيدهم بسهولة عبر واجهة أنيقة وبسيطة. النظام يجب أن يعرض الخدمات المتاحة، الأسعار، وأوقات الفراغ بشكل مرئي وجذاب. يتضمن لوحة تحكم لإدارة الحجوزات، وإشعارات تذكير تلقائية عبر واتساب، مع إمكانية الدفع الإلكتروني أو عند الاستلام.'
-            },
-            clinic: {
-                title: 'نظام حجز موعد للعيادات',
-                desc: 'أحتاج إلى نظام حجز موعد ذكي وآمن للعيادات الطبية يتيح للمرضى حجز مواعيدهم بسهولة مع اختيار الطبيب والتخصص والوقت المناسب. النظام يجب أن يتضمن لوحة تحكم للأطباء، وإرسال تذكيرات تلقائية، مع ضمان خصوصية بيانات المرضى وتشفيرها بالكامل وفقاً لأعلى معايير الأمان والامتثال للوائح الصحية.'
-            },
-            attendance: {
-                title: 'تطبيق لتسجيل الحضور والانصراف',
-                desc: 'أرغب في تطوير تطبيق عصري وآمن لتسجيل حضور وانصراف الموظفين، يعتمد على تقنيات حديثة مثل التعرف على الوجه أو البصمة أو رمز QR. التطبيق يجب أن يوفر لوحة تحكم للمدير لمتابعة سجلات الحضور، وتقارير شهرية، وإشعارات فورية. مع ضمان أعلى مستويات الأمان وحماية البيانات، وتشفير المعلومات، وصلاحيات وصول محددة.'
-            },
-            other: {
-                title: '',
-                desc: ''
-            }
-        };
+        function updateCharCounter() {
+            const len = ideaDesc.value.length;
+            charCounter.textContent = len + ' / 600';
+            charCounter.classList.toggle('warn', len >= 550);
+        }
 
-        projectType.addEventListener('change', () => {
-            const selected = projectType.value;
-            const template = projectTemplates[selected];
-            
-            if (template) {
-                ideaTitle.value = template.title;
-                ideaDesc.value = template.desc;
-                
-                charCounter.textContent = template.desc.length + ' / 600';
-                charCounter.classList.toggle('warn', template.desc.length >= 550);
-                
+        function fillFromTemplate(key, animate = true) {
+            const template = projectTemplates[currentLang][key];
+            if (!template) return;
+
+            ideaTitle.value = template.title;
+            ideaDesc.value = template.desc;
+            updateCharCounter();
+
+            if (animate && key !== 'other') {
                 ideaTitle.classList.remove('auto-filled');
                 ideaDesc.classList.remove('auto-filled');
                 void ideaTitle.offsetWidth;
                 ideaTitle.classList.add('auto-filled');
                 ideaDesc.classList.add('auto-filled');
-                
+
                 setTimeout(() => {
                     ideaTitle.classList.remove('auto-filled');
                     ideaDesc.classList.remove('auto-filled');
                 }, 600);
-                
-                ideaTitle.classList.remove('field-error', 'shake');
-                ideaDesc.classList.remove('field-error', 'shake');
-                
-                if (selected === 'other') {
-                    setTimeout(() => ideaTitle.focus(), 100);
-                }
             }
+
+            ideaTitle.classList.remove('field-error', 'shake');
+            ideaDesc.classList.remove('field-error', 'shake');
+
+            if (key === 'other') {
+                setTimeout(() => ideaTitle.focus(), 100);
+            }
+        }
+
+        projectType.addEventListener('change', () => {
+            fillFromTemplate(projectType.value, true);
         });
 
         function openIdeaModal() {
@@ -1267,7 +1511,6 @@
             }
         }
 
-        // ===== زر الرجوع في الهاتف: يغلق القائمة الجانبية أو النافذة المنبثقة =====
         window.addEventListener('popstate', () => {
             if (mobileMenuOpen) {
                 closeMobileMenu(false);
@@ -1291,11 +1534,7 @@
             }
         });
 
-        ideaDesc.addEventListener('input', () => {
-            const len = ideaDesc.value.length;
-            charCounter.textContent = len + ' / 600';
-            charCounter.classList.toggle('warn', len >= 550);
-        });
+        ideaDesc.addEventListener('input', updateCharCounter);
 
         [projectType, ideaTitle, ideaDesc].forEach(field => {
             field.addEventListener('input', () => {
@@ -1320,20 +1559,21 @@
             });
             if (!valid) return;
 
-            const selectedType = projectType.options[projectType.selectedIndex].text.replace(/^[^\p{L}]+/u, '').trim();
-            
+            const t = translations[currentLang];
+            const selectedType = projectType.options[projectType.selectedIndex].text.replace(/^[^\p{L}&]+/u, '').trim();
+
             const message =
-                'مرحباً عبدالعزيز 👋\n' +
-                'لدي فكرة أود تحويلها إلى منتج رقمي:\n\n' +
-                '🎯 نوع المشروع: ' + selectedType + '\n\n' +
-                '💡 عنوان الفكرة: ' + ideaTitle.value.trim() + '\n\n' +
-                '📝 وصف الفكرة: ' + ideaDesc.value.trim();
+                t.wa_greeting + '\n' +
+                t.wa_intro + '\n\n' +
+                t.wa_type + selectedType + '\n\n' +
+                t.wa_title + ideaTitle.value.trim() + '\n\n' +
+                t.wa_desc + ideaDesc.value.trim();
 
             const waUrl = 'https://wa.me/966561365019?text=' + encodeURIComponent(message);
             window.open(waUrl, '_blank');
 
             sendIdeaBtn.classList.add('sent');
-            sendIdeaBtn.innerHTML = '<i class="fas fa-check"></i> تم تجهيز فكرتك!';
+            sendIdeaBtn.innerHTML = t.sent_btn;
 
             setTimeout(() => {
                 closeIdeaModal();
@@ -1342,9 +1582,12 @@
                 charCounter.textContent = '0 / 600';
                 charCounter.classList.remove('warn');
                 sendIdeaBtn.classList.remove('sent');
-                sendIdeaBtn.innerHTML = '<i class="fa-brands fa-whatsapp"></i> إرسال عبر واتساب';
+                sendIdeaBtn.innerHTML = t.send_btn;
             }, 1500);
         });
+
+        // ===== تطبيق اللغة المحفوظة عند البدء =====
+        applyLang(currentLang);
     </script>
 </body>
 </html>
