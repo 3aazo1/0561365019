@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
     <style>
-        /* ===== إعادة تعيين ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         html { scroll-behavior: smooth; scroll-padding-top: 90px; }
 
@@ -70,7 +69,6 @@
         section { padding: 84px 0; position: relative; }
         .text-center { text-align: center; }
 
-        /* ===== شريط تقدم التمرير ===== */
         #progressBar {
             position: fixed; top: 0; right: 0; height: 3px; width: 0;
             background: linear-gradient(90deg, var(--accent), var(--accent-2));
@@ -79,7 +77,6 @@
             transition: width 0.1s linear;
         }
 
-        /* ===== شريط التنقل ===== */
         .navbar {
             position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
             background: var(--nav-bg);
@@ -116,7 +113,6 @@
 
         .menu-toggle { display: none; background: none; border: none; color: var(--text-primary); font-size: 26px; cursor: pointer; padding: 4px; }
 
-        /* ===== Hero ===== */
         .hero {
             min-height: 100vh; display: flex; align-items: center;
             padding-top: 90px; overflow: hidden;
@@ -219,7 +215,6 @@
         }
         @keyframes bounceDown { 0%,100% { transform: translateX(50%) translateY(0); } 50% { transform: translateX(50%) translateY(8px); } }
 
-        /* ===== شريط الأدوات المتحرك ===== */
         .marquee {
             direction: ltr; overflow: hidden;
             border-top: 1px solid var(--border-glass); border-bottom: 1px solid var(--border-glass);
@@ -234,7 +229,6 @@
         .marquee-item i { color: var(--accent); }
         @keyframes marqueeMove { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-        /* ===== العناوين ===== */
         .section-title { font-size: 36px; font-weight: 900; margin-bottom: 12px; }
         .section-title span {
             background: linear-gradient(135deg, var(--accent), var(--accent-2));
@@ -243,7 +237,6 @@
         }
         .section-sub { color: var(--text-secondary); font-size: 17px; margin-bottom: 42px; }
 
-        /* ===== نبذة عني ===== */
         .about-card {
             background: var(--bg-card); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--border-glass); border-radius: 28px;
@@ -264,7 +257,6 @@
         }
         .about-text p { color: var(--text-secondary); font-size: 17px; line-height: 1.9; }
 
-        /* ===== المهارات ===== */
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; }
         .service-card {
             background: var(--bg-card); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
@@ -290,7 +282,6 @@
         .service-card h3 { font-size: 18px; font-weight: 800; margin-bottom: 8px; }
         .service-card p { color: var(--text-secondary); font-size: 14px; line-height: 1.7; }
 
-        /* ===== لماذا أنا ===== */
         .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; margin-top: 10px; }
         .why-item {
             background: var(--bg-card); border-radius: 18px; padding: 26px 20px;
@@ -300,7 +291,6 @@
         .why-item .icon { font-size: 28px; color: var(--accent); margin-bottom: 12px; display: block; }
         .why-item h4 { font-size: 15px; font-weight: 700; line-height: 1.7; }
 
-        /* ===== التواصل ===== */
         .contact-section { text-align: center; }
         .contact-section .section-title { font-size: 40px; }
         .contact-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; margin-top: 32px; }
@@ -315,11 +305,10 @@
         .contact-btn-wa:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(37, 211, 102, 0.45); }
         .contact-btn:active { transform: translateY(0) scale(0.97); }
 
-        /* ===== أيقونات التواصل الاجتماعي ===== */
         .social-icons {
             display: flex; justify-content: center; align-items: center;
             gap: 14px; margin-top: 36px;
-            flex-wrap: nowrap; /* صف واحد دائماً */
+            flex-wrap: nowrap;
         }
         
         .social-icon {
@@ -336,7 +325,6 @@
             animation: socialFloat 3s ease-in-out infinite;
         }
         
-        /* حركة float مختلفة لكل أيقونة */
         .social-icon:nth-child(1) { animation-delay: 0s; }
         .social-icon:nth-child(2) { animation-delay: 0.2s; }
         .social-icon:nth-child(3) { animation-delay: 0.4s; }
@@ -349,7 +337,6 @@
             50% { transform: translateY(-6px); }
         }
 
-        /* تأثير دائرة خلفية عند hover */
         .social-icon::before {
             content: '';
             position: absolute;
@@ -390,7 +377,6 @@
             transition: transform 0.1s ease;
         }
 
-        /* ===== ألوان مخصصة لكل منصة ===== */
         .social-icon.facebook { --social-shadow: rgba(24, 119, 242, 0.45); }
         .social-icon.facebook:hover { color: #1877F2; }
         
@@ -414,7 +400,6 @@
         .social-icon.telegram { --social-shadow: rgba(0, 136, 204, 0.45); }
         .social-icon.telegram:hover { color: #0088CC; }
 
-        /* ===== حالة الظهور المتتابع ===== */
         .social-icons .social-icon {
             opacity: 0;
             transform: translateY(30px) scale(0.7);
@@ -435,7 +420,7 @@
 
         footer { border-top: 1px solid var(--border-glass); padding: 30px 0; text-align: center; color: var(--text-muted); font-size: 14px; }
 
-        /* ===== النافذة المنبثقة (إرسال فكرة) ===== */
+        /* ===== النافذة المنبثقة العصرية ===== */
         .idea-overlay {
             position: fixed; inset: 0; z-index: 10000;
             background: rgba(5, 5, 10, 0.62);
@@ -456,7 +441,19 @@
             position: relative;
             animation: modalUp 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             max-height: 90vh; overflow-y: auto;
+            overflow-x: hidden;
         }
+        /* توهج علوي عصري للبطاقة */
+        .idea-card::before {
+            content: '';
+            position: absolute;
+            top: -50%; right: -20%;
+            width: 140%; height: 100%;
+            background: radial-gradient(circle, rgba(37, 211, 102, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .idea-card > * { position: relative; z-index: 1; }
         @keyframes modalUp {
             from { transform: translateY(36px) scale(0.94); opacity: 0; }
             to { transform: translateY(0) scale(1); opacity: 1; }
@@ -469,6 +466,7 @@
             color: var(--text-secondary); font-size: 15px;
             display: flex; align-items: center; justify-content: center;
             cursor: pointer; transition: all 0.25s ease;
+            z-index: 2;
         }
         .idea-close:hover { background: var(--bg-card-hover); color: var(--text-primary); transform: rotate(90deg); }
 
@@ -491,12 +489,18 @@
 
         .field-group { margin-bottom: 16px; text-align: right; }
         .field-group label {
-            display: block; font-size: 14px; font-weight: 800;
+            display: flex; align-items: center; gap: 6px;
+            font-size: 14px; font-weight: 800;
             margin-bottom: 8px; color: var(--text-primary);
+        }
+        .field-group label i {
+            color: #25d366;
+            font-size: 13px;
         }
         .field-group label .req { color: #ff6b6b; margin-right: 2px; }
         .field-group input,
-        .field-group textarea {
+        .field-group textarea,
+        .field-group select {
             width: 100%;
             background: var(--bg-card);
             border: 1.5px solid var(--border-glass);
@@ -505,18 +509,67 @@
             color: var(--text-primary);
             font-family: 'Cairo', sans-serif;
             font-size: 15px; font-weight: 600;
-            transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, transform 0.2s ease;
             outline: none;
         }
         .field-group input::placeholder,
         .field-group textarea::placeholder { color: var(--text-muted); font-weight: 600; }
         .field-group input:focus,
-        .field-group textarea:focus {
+        .field-group textarea:focus,
+        .field-group select:focus {
             border-color: #25d366;
             box-shadow: 0 0 0 4px rgba(37, 211, 102, 0.14);
             background: var(--bg-card-hover);
+            transform: translateY(-1px);
         }
         .field-group textarea { min-height: 110px; resize: none; line-height: 1.7; }
+
+        .select-wrapper {
+            position: relative;
+        }
+        .select-wrapper select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            padding-left: 44px;
+            cursor: pointer;
+        }
+        .select-wrapper::after {
+            content: '\f078';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 13px;
+            pointer-events: none;
+            transition: transform 0.3s ease, color 0.25s ease;
+        }
+        .select-wrapper:focus-within::after {
+            color: #25d366;
+            transform: translateY(-50%) rotate(180deg);
+        }
+        .select-wrapper::before {
+            content: '\f0ae';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #25d366;
+            font-size: 15px;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .select-wrapper select option {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            padding: 10px;
+            font-weight: 700;
+        }
 
         .field-error { border-color: #ff6b6b !important; box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.14) !important; }
         .shake { animation: shakeX 0.4s ease; }
@@ -536,20 +589,47 @@
         }
         .char-counter.warn { color: #ff9f43; }
 
+        .auto-filled {
+            animation: autoFillPulse 0.6s ease;
+        }
+        @keyframes autoFillPulse {
+            0% { background: var(--bg-card); }
+            50% { background: rgba(37, 211, 102, 0.15); border-color: #25d366; }
+            100% { background: var(--bg-card); }
+        }
+
+        /* زر إرسال عصري بتدرج لوني */
         .idea-send {
             width: 100%; margin-top: 8px;
-            background: #25d366; color: #fff;
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+            color: #fff;
             border: none; border-radius: 16px;
             padding: 15px; font-size: 17px; font-weight: 800;
             font-family: 'Cairo', sans-serif;
             cursor: pointer;
             display: flex; align-items: center; justify-content: center; gap: 10px;
-            transition: all 0.25s ease;
+            transition: all 0.3s ease;
             box-shadow: 0 6px 22px rgba(37, 211, 102, 0.3);
+            position: relative;
+            overflow: hidden;
         }
-        .idea-send:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(37, 211, 102, 0.45); background: #2ee275; }
+        .idea-send::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        .idea-send:hover::before {
+            left: 100%;
+        }
+        .idea-send:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.45); 
+        }
         .idea-send:active { transform: translateY(0) scale(0.98); }
-        .idea-send.sent { background: #128c7e; pointer-events: none; }
+        .idea-send.sent { background: linear-gradient(135deg, #128c7e 0%, #0d6e5f 100%); pointer-events: none; }
 
         .idea-note {
             display: flex; align-items: center; justify-content: center; gap: 6px;
@@ -558,7 +638,6 @@
         }
         .idea-note i { font-size: 11px; }
 
-        /* ===== الظهور عند التمرير ===== */
         .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
         .reveal.visible { opacity: 1; transform: translateY(0); }
         .services-grid .reveal:nth-child(2) { transition-delay: 0.1s; }
@@ -567,7 +646,6 @@
         .why-grid .reveal:nth-child(2) { transition-delay: 0.12s; }
         .why-grid .reveal:nth-child(3) { transition-delay: 0.24s; }
 
-        /* ===== التجاوب ===== */
         @media (max-width: 992px) {
             .hero-grid { grid-template-columns: 1fr; text-align: center; }
             .hero-content h1 { font-size: 40px; }
@@ -620,7 +698,6 @@
             .social-icon { width: 44px; height: 44px; font-size: 18px; }
         }
 
-        /* ضمان صف واحد حتى في الشاشات الصغيرة جداً */
         @media (max-width: 360px) {
             .social-icons { gap: 6px; }
             .social-icon { width: 40px; height: 40px; font-size: 16px; }
@@ -631,7 +708,6 @@
 
     <div id="progressBar"></div>
 
-    <!-- ===== شريط التنقل ===== -->
     <nav class="navbar" id="navbar">
         <div class="container">
             <a href="#hero" class="nav-logo">عبد<span>العزيز</span></a>
@@ -654,7 +730,6 @@
         </div>
     </nav>
 
-    <!-- ===== القسم الرئيسي ===== -->
     <section class="hero" id="hero">
         <div class="container hero-grid">
             <div class="hero-content">
@@ -688,7 +763,6 @@
         <div class="scroll-hint"><i class="fas fa-chevron-down"></i></div>
     </section>
 
-    <!-- ===== شريط الأدوات ===== -->
     <div class="marquee" aria-hidden="true">
         <div class="marquee-track" id="marqueeTrack">
             <span class="marquee-item"><i class="fab fa-figma"></i> Figma</span>
@@ -702,7 +776,6 @@
         </div>
     </div>
 
-    <!-- ===== نبذة عني ===== -->
     <section id="about">
         <div class="container">
             <div class="about-card reveal">
@@ -719,7 +792,6 @@
         </div>
     </section>
 
-    <!-- ===== المهارات ===== -->
     <section id="services">
         <div class="container">
             <div class="text-center reveal">
@@ -751,7 +823,6 @@
         </div>
     </section>
 
-    <!-- ===== لماذا أنا ===== -->
     <section id="why">
         <div class="container">
             <div class="text-center reveal">
@@ -775,7 +846,6 @@
         </div>
     </section>
 
-    <!-- ===== التواصل ===== -->
     <section id="contact" class="contact-section">
         <div class="container">
             <div class="reveal">
@@ -810,7 +880,6 @@
         </div>
     </section>
 
-    <!-- ===== Footer ===== -->
     <footer>
         <div class="container">
             &copy; <span id="year"></span> Abdul3ziz95 &bull; جميع الحقوق محفوظة
@@ -826,16 +895,42 @@
 
             <div class="idea-icon"><i class="fa-brands fa-whatsapp"></i></div>
             <h3>أرسل فكرتك 💡</h3>
-            <p class="idea-sub">اكتب تفاصيل فكرتك وسيتم تحويلها مباشرة إلى واتساب</p>
+            <p class="idea-sub">اختر نوع مشروعك أو اكتب تفاصيلك يدوياً</p>
 
             <form id="ideaForm" novalidate>
                 <div class="field-group">
-                    <label for="ideaTitle">عنوان الفكرة <span class="req">*</span></label>
-                    <input type="text" id="ideaTitle" placeholder="مثال: تطبيق توصيل للمطاعم المنزلية" maxlength="80" autocomplete="off" />
+                    <label for="projectType">
+                        <i class="fas fa-layer-group"></i>
+                        نوع المشروع <span class="req">*</span>
+                    </label>
+                    <div class="select-wrapper">
+                        <select id="projectType" required>
+                            <option value="company">🏢 موقع تعريفي لشركة</option>
+                            <option value="personal">👤 موقع شخصي</option>
+                            <option value="bukhari">🍗 مينو مطعم بخاري</option>
+                            <option value="foul">🥘 مينو فوال</option>
+                            <option value="buffet">🌯 مينو بوفيه</option>
+                            <option value="salon">💇‍♀️💇‍♂️ حجز ذكي للصوالين</option>
+                            <option value="clinic">🩺 حجز ذكي للعيادات</option>
+                            <option value="attendance">📋 تطبيق لتسجيل الحضور والانصراف</option>
+                            <option value="other" selected>✨ آخر (سأكتب بنفسي)</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="field-group">
-                    <label for="ideaDesc">وصف الفكرة باختصار <span class="req">*</span></label>
+                    <label for="ideaTitle">
+                        <i class="fas fa-heading"></i>
+                        عنوان الفكرة <span class="req">*</span>
+                    </label>
+                    <input type="text" id="ideaTitle" placeholder="مثال: منصة حجز مواعيد للعيادات" maxlength="80" autocomplete="off" />
+                </div>
+
+                <div class="field-group">
+                    <label for="ideaDesc">
+                        <i class="fas fa-align-right"></i>
+                        وصف الفكرة باختصار <span class="req">*</span>
+                    </label>
                     <textarea id="ideaDesc" placeholder="اشرح فكرتك باختصار: ما المشكلة التي تحلها؟ ولمن هذا المنتج؟" maxlength="600"></textarea>
                     <span class="char-counter" id="charCounter">0 / 600</span>
                 </div>
@@ -938,47 +1033,142 @@
         // ===== النافذة المنبثقة: أرسل فكرتك =====
         const ideaOverlay = document.getElementById('ideaOverlay');
         const ideaForm = document.getElementById('ideaForm');
+        const projectType = document.getElementById('projectType');
         const ideaTitle = document.getElementById('ideaTitle');
         const ideaDesc = document.getElementById('ideaDesc');
         const sendIdeaBtn = document.getElementById('sendIdeaBtn');
         const charCounter = document.getElementById('charCounter');
 
+        let ideaModalOpen = false;
+
+        // ===== الأوصاف الجديدة العصرية =====
+        const projectTemplates = {
+            company: {
+                title: 'موقع تعريفي احترافي للشركة',
+                desc: 'أرغب في تصميم موقع تعريفي عصري يعكس هوية شركتي بشكل احترافي. الموقع يجب أن يتضمن صفحات (الرئيسية، من نحن، خدماتنا، أعمالنا، تواصل معنا) مع تصميم متجاوب يعمل بسلاسة على جميع الأجهزة. أريد لمسات تفاعلية وحركات سلسة تعطي انطباعاً حديثاً، مع تحسين محركات البحث (SEO) وسرعة تحميل عالية.'
+            },
+            personal: {
+                title: 'موقع شخصي احترافي',
+                desc: 'أريد موقعاً شخصياً أنيقاً يعرض سيرتي الذاتية، مهاراتي، وأعمالي بتصميم عصري وجذاب. يجب أن يتضمن أقساماً للتعريف بي، معرض أعمالي، خبراتي، ووسائل التواصل معي. أريد تصميماً فريداً يميزني عن الآخرين مع تأثيرات حركية سلسة وتجربة مستخدم ممتازة على جميع الأجهزة.'
+            },
+            bukhari: {
+                title: 'مينو رقمي لمطعم بخاري',
+                desc: 'أرغب في تصميم مينو رقمي تفاعلي لمطعم بخاري يعرض الأطباق بشكل شهي وجذاب مع صور عالية الجودة. المنيو يجب أن يكون مقسماً إلى أقسام واضحة (مقبلات، أطباق رئيسية، مشويات، مشروبات) مع الأسعار والوصف. أريد تصميماً يعكس أصالة المطبخ البخاري بلمسة عصرية، وسرعة تحميل عالية، وإمكانية الوصول عبر رمز QR.'
+            },
+            foul: {
+                title: 'مينو رقمي لمطعم فول وفلافل',
+                desc: 'أحتاج إلى مينو رقمي عصري لمطعم فول وفلافل يعرض أصناف الفطور والغداء بتصميم دافئ وجذاب. المنيو يجب أن يشمل أقساماً (فول، فلافل، سندويشات، إفطار شعبي، وجبات عائلية) مع الصور والأسعار. أريد تصميماً يعكس أجواء المطعم الشعبية بلمسة حديثة، وسهولة التصفح من الجوال، وإمكانية المشاركة عبر رابط أو QR Code.'
+            },
+            buffet: {
+                title: 'مينو رقمي لبوفيه مفتوح',
+                desc: 'أرغب في تصميم مينو رقمي شامل لمطعم بوفيه مفتوح يعرض جميع الأصناف المتوفرة (مشويات، مأكولات بحرية، سلطات، حلويات، مشروبات) مع التفاصيل والأسعار. أريد إضافة ميزة فلترة الأصناف حسب النوع، وعرض العروض اليومية، وتصميم تفاعلي يسهل على الزبون تصفح المنيو من خلال رابط أو QR Code.'
+            },
+            salon: {
+                title: 'نظام حجز ذكي للصوالين',
+                desc: 'أرغب في تطوير نظام حجز ذكي وعصري للصوالين يتيح للعملاء حجز مواعيدهم بسهولة عبر واجهة أنيقة وبسيطة. النظام يجب أن يعرض الخدمات المتاحة، الأسعار، وأوقات الفراغ بشكل مرئي وجذاب. يتضمن لوحة تحكم لإدارة الحجوزات، وإشعارات تذكير تلقائية عبر واتساب، مع إمكانية الدفع الإلكتروني أو عند الاستلام.'
+            },
+            clinic: {
+                title: 'نظام حجز ذكي للعيادات',
+                desc: 'أحتاج إلى نظام حجز ذكي وآمن للعيادات الطبية يتيح للمرضى حجز مواعيدهم بسهولة مع اختيار الطبيب والتخصص والوقت المناسب. النظام يجب أن يتضمن لوحة تحكم للأطباء، وإرسال تذكيرات تلقائية، مع ضمان خصوصية بيانات المرضى وتشفيرها بالكامل وفقاً لأعلى معايير الأمان والامتثال للوائح الصحية.'
+            },
+            attendance: {
+                title: 'تطبيق لتسجيل الحضور والانصراف',
+                desc: 'أرغب في تطوير تطبيق عصري وآمن لتسجيل حضور وانصراف الموظفين، يعتمد على تقنيات حديثة مثل التعرف على الوجه أو البصمة أو رمز QR. التطبيق يجب أن يوفر لوحة تحكم للمدير لمتابعة سجلات الحضور، وتقارير شهرية، وإشعارات فورية. مع ضمان أعلى مستويات الأمان وحماية البيانات، وتشفير المعلومات، وصلاحيات وصول محددة.'
+            },
+            other: {
+                title: '',
+                desc: ''
+            }
+        };
+
+        // ===== استماع لتغيير نوع المشروع =====
+        projectType.addEventListener('change', () => {
+            const selected = projectType.value;
+            const template = projectTemplates[selected];
+            
+            if (template) {
+                ideaTitle.value = template.title;
+                ideaDesc.value = template.desc;
+                
+                charCounter.textContent = template.desc.length + ' / 600';
+                charCounter.classList.toggle('warn', template.desc.length >= 550);
+                
+                ideaTitle.classList.remove('auto-filled');
+                ideaDesc.classList.remove('auto-filled');
+                void ideaTitle.offsetWidth;
+                ideaTitle.classList.add('auto-filled');
+                ideaDesc.classList.add('auto-filled');
+                
+                setTimeout(() => {
+                    ideaTitle.classList.remove('auto-filled');
+                    ideaDesc.classList.remove('auto-filled');
+                }, 600);
+                
+                ideaTitle.classList.remove('field-error', 'shake');
+                ideaDesc.classList.remove('field-error', 'shake');
+                
+                if (selected === 'other') {
+                    setTimeout(() => ideaTitle.focus(), 100);
+                }
+            }
+        });
+
+        // ===== فتح وإغلاق النافذة مع دعم زر الرجوع =====
         function openIdeaModal() {
             ideaOverlay.style.display = 'flex';
             document.body.style.overflow = 'hidden';
-            setTimeout(() => ideaTitle.focus(), 350);
+            ideaModalOpen = true;
+            try {
+                history.pushState({ ideaModal: true }, '');
+            } catch (e) {}
+            setTimeout(() => projectType.focus(), 350);
         }
 
-        function closeIdeaModal() {
+        function closeIdeaModal(goBack = true) {
+            if (!ideaModalOpen) return;
             ideaOverlay.style.display = 'none';
             document.body.style.overflow = '';
+            ideaModalOpen = false;
+            if (goBack) {
+                try {
+                    if (history.state && history.state.ideaModal) {
+                        history.back();
+                    }
+                } catch (e) {}
+            }
         }
 
-        // إغلاق عند الضغط خارج البطاقة
+        window.addEventListener('popstate', () => {
+            if (ideaModalOpen) {
+                ideaOverlay.style.display = 'none';
+                document.body.style.overflow = '';
+                ideaModalOpen = false;
+            }
+        });
+
         ideaOverlay.addEventListener('click', (e) => {
             if (e.target === ideaOverlay) closeIdeaModal();
         });
 
-        // إغلاق بزر Escape
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && ideaOverlay.style.display === 'flex') closeIdeaModal();
+            if (e.key === 'Escape' && ideaModalOpen) closeIdeaModal();
         });
 
-        // عداد الأحرف
         ideaDesc.addEventListener('input', () => {
             const len = ideaDesc.value.length;
             charCounter.textContent = len + ' / 600';
             charCounter.classList.toggle('warn', len >= 550);
         });
 
-        // إزالة حالة الخطأ عند الكتابة
-        [ideaTitle, ideaDesc].forEach(field => {
+        [projectType, ideaTitle, ideaDesc].forEach(field => {
             field.addEventListener('input', () => {
+                field.classList.remove('field-error', 'shake');
+            });
+            field.addEventListener('change', () => {
                 field.classList.remove('field-error', 'shake');
             });
         });
 
-        // إرسال النموذج
         ideaForm.addEventListener('submit', (e) => {
             e.preventDefault();
 
@@ -993,25 +1183,25 @@
             });
             if (!valid) return;
 
-            // تجهيز الرسالة
+            const selectedType = projectType.options[projectType.selectedIndex].text.replace(/^[^\p{L}]+/u, '').trim();
+            
             const message =
                 'مرحباً عبدالعزيز 👋\n' +
                 'لدي فكرة أود تحويلها إلى منتج رقمي:\n\n' +
+                '🎯 نوع المشروع: ' + selectedType + '\n\n' +
                 '💡 عنوان الفكرة: ' + ideaTitle.value.trim() + '\n\n' +
                 '📝 وصف الفكرة: ' + ideaDesc.value.trim();
 
             const waUrl = 'https://wa.me/966561365019?text=' + encodeURIComponent(message);
-
-            // فتح واتساب فوراً (ضمن تفاعل المستخدم)
             window.open(waUrl, '_blank');
 
-            // حالة النجاح
             sendIdeaBtn.classList.add('sent');
             sendIdeaBtn.innerHTML = '<i class="fas fa-check"></i> تم تجهيز فكرتك!';
 
             setTimeout(() => {
                 closeIdeaModal();
                 ideaForm.reset();
+                projectType.value = 'other';
                 charCounter.textContent = '0 / 600';
                 charCounter.classList.remove('warn');
                 sendIdeaBtn.classList.remove('sent');
